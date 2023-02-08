@@ -58,6 +58,8 @@ The below may change soon as we rebuild on Akash Network.
 
 - [Vercel Analytics](https://vercel.com/analytics) – Track unique visitors, pageviews, and more in a privacy-friendly way
 
+- Currently using [t-SNE](https://github.com/scienceai/tsne-js/), may switch to other options. [linear time complexity??](https://github.com/tensorflow/tfjs-tsne). idk about [ andrej's ](https://github.com/karpathy/tsnejs)
+
 
 
 ## Useful tips

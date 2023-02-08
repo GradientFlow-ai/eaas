@@ -14,5 +14,16 @@ export const FADE_UP_ANIMATION_VARIANTS = {
   show: { opacity: 1, y: 0, transition: { type: "spring" } },
 };
 
-export const DEPLOY_URL =
-  "https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fsteven-tey%2Fprecedent&project-name=precedent&repository-name=precedent&demo-title=Precedent&demo-description=An%20opinionated%20collection%20of%20components%2C%20hooks%2C%20and%20utilities%20for%20your%20Next%20project.&demo-url=https%3A%2F%2Fprecedent.dev&demo-image=https%3A%2F%2Fprecedent.dev%2Fapi%2Fog&env=DATABASE_URL,GOOGLE_CLIENT_ID,GOOGLE_CLIENT_SECRET,NEXTAUTH_SECRET&envDescription=How%20to%20get%20these%20env%20variables%3A&envLink=https%3A%2F%2Fgithub.com%2Fsteven-tey%2Fprecedent%2Fblob%2Fmain%2F.env.example";
+export const DEPLOY_URL = "https://localhost:3000";
+
+export const DUMMY_DATA = [
+  // { x: -0.13414751194986796, y: -0.3935611312813702 },
+  // { x: 0.05240768059068097, y: 0.8814799638595909 },
+  // { x: 0.8091779192200634, y: -0.5297540533109903 },
+  // { x: -0.14130926670980365, y: 0.2869303939154417 },
+  { x: -1, y: 0.377524319897966 },
+  { x: 0.33176365946091535, y: 0.2567174414251148 },
+  { x: 0.3751387694352182, y: -0.38730339235510686 },
+  { x: 0.028188347949905455, y: -1 },
+  { x: -0.5338914875808636, y: -0.01848535163329007 },
+];
