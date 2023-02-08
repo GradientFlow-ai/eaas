@@ -106,7 +106,7 @@ export function useSignInModal() {
       <SignInModal
         showSignInModal={showSignInModal}
         setShowSignInModal={setShowSignInModal}
-        providers={providers}
+        providers={providers || {}}
       />
     );
   }, [providers, showSignInModal, setShowSignInModal]);
