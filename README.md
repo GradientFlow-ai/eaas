@@ -62,3 +62,6 @@ The below may change soon as we rebuild on Akash Network.
 
 ## Useful tips
 `npx prisma db push`, be aware that this will drop and recreate the tables
+
+## To Dos
+    - configure policies for supa
