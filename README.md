@@ -1,4 +1,4 @@
-  <h1 align="center">Embeddings As a Service</h1>
+<h1 align="center">Embeddings As a Service</h1>
 
 <p align="center">
 We manage your embeddings so you don't have to
@@ -58,3 +58,7 @@ The below may change soon as we rebuild on Akash Network.
 
 - [Vercel Analytics](https://vercel.com/analytics) – Track unique visitors, pageviews, and more in a privacy-friendly way
 
+
+
+## Useful tips
+`npx prisma db push`, be aware that this will drop and recreate the tables
