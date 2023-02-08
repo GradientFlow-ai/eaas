@@ -1,23 +1,24 @@
 import { Configuration, OpenAIApi } from "openai";
 import supabaseClient from "@/lib/supabaseClient";
 import prisma from "@/lib/prisma";
+import { NextApiRequest, NextApiResponse } from "next";
 
-const makePrismaQueryString = (
-  queryEmbedding,
-  similarityThreshold,
-  matchCount,
-) =>
-  prisma.$queryRawUnsafe`
-SELECT
-CAST ( ${queryEmbedding} AS VECTOR )
-id, content, ("Documents".embedding <=> ${queryEmbedding}) as similarity
-FROM "Documents"
-WHERE ("Documents".embedding <=> ${queryEmbedding}) > ${similarityThreshold}
-ORDER by "Documents".embedding <=> ${queryEmbedding}
-LIMIT ${matchCount}
-`;
+// const makePrismaQueryString = (
+//   queryEmbedding,
+//   similarityThreshold,
+//   matchCount,
+// ) =>
+//   prisma.$queryRawUnsafe`
+// SELECT
+// CAST ( ${queryEmbedding} AS VECTOR )
+// id, content, ("Documents".embedding <=> ${queryEmbedding}) as similarity
+// FROM "Documents"
+// WHERE ("Documents".embedding <=> ${queryEmbedding}) > ${similarityThreshold}
+// ORDER by "Documents".embedding <=> ${queryEmbedding}
+// LIMIT ${matchCount}
+// `;
 
-async function searchEmbeddings(req, res) {
+async function searchEmbeddings(req: NextApiRequest, res: NextApiResponse) {
   // const { query } = req;
   const configuration = new Configuration({
     apiKey: process.env.OPENAI_API_KEY as string,

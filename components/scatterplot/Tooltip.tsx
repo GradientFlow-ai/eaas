@@ -1,6 +1,6 @@
 import styles from "./tooltip.module.css";
 
-export const Tooltip = ({ interactionData }) => {
+export const Tooltip = ({ interactionData }: { interactionData: any }) => {
   if (!interactionData) {
     return null;
   }

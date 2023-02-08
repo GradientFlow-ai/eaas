@@ -26,7 +26,7 @@ export default function Layout({
       <Meta {...meta} />
       <SignInModal />
       <div className="fixed h-screen w-full bg-gradient-to-br from-indigo-50 via-white to-cyan-100" />
-      <Header />
+          <Header setShowSignInModal={setShowSignInModal}/>
       <main className="flex w-full flex-col items-center justify-center py-32">
         {children}
       </main>
@@ -35,7 +35,7 @@ export default function Layout({
   );
 }
 
-const Header = () => {
+const Header = ({ setShowSignInModal }: {setShowSignInModal: (a: boolean) => void }) => {
   const { data: session, status } = useSession();
   const scrolled = useScroll(50);
 

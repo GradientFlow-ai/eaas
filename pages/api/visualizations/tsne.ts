@@ -1,8 +1,9 @@
 import TSNE from "tsne-js";
 import supabaseClient from "@/lib/supabaseClient";
 import prisma from "@/lib/prisma";
+import { NextApiRequest, NextApiResponse } from "next";
 
-const makeVisualization = async (req, res) => {
+const makeVisualization = async (req: NextApiRequest, res: NextApiResponse) => {
   let model = new TSNE({
     dim: 3,
     perplexity: 30.0,
@@ -40,11 +41,13 @@ const makeVisualization = async (req, res) => {
   let outputScaled = model.getOutputScaled();
 
   // this is the shape our scatterplot expects
-  const processedData = outputScaled.map(([x, y], i) => ({
-    ...rawData[i],
-    x,
-    y,
-  }));
+  const processedData = outputScaled.map(
+    ([x, y]: [number, number], i: number) => ({
+      ...rawData[i],
+      x,
+      y,
+    }),
+  );
 
   res.status(200).json({ data: processedData });
 };

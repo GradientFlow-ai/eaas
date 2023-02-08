@@ -4,7 +4,7 @@ const anonKey = process.env.PUBLIC_SUPABASE_ANON_KEY;
 
 const supabaseClient = createClient(
   "https://ttkxzgtxzohwfqpsgaeu.supabase.co",
-  anonKey,
+  anonKey as string,
 );
 
 export default supabaseClient;

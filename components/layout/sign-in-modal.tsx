@@ -12,13 +12,17 @@ import { LoadingDots, Google, Github } from "@/components/shared/icons";
 import { Mail } from "lucide-react";
 import Image from "next/image";
 
-const ButtonOptions = {
-  Google,
-  GitHub: Github,
-  Email: Mail,
+type ButtonOptionsType = {
+    [key: string]: any
 };
 
-const SignInButton = ({ signIn, provider: { id, name } }) => {
+const ButtonOptions: ButtonOptionsType = {
+    Google: Google,
+    GitHub: Github,
+    Email: Mail,
+};
+
+const SignInButton = ({ signIn, provider: { id, name } }: { signIn: (id: string) => void, provider: any }) => {
   const [signInClicked, setSignInClicked] = useState(false);
   const Icon = useMemo(() => ButtonOptions[name], [name]);
   return (
@@ -92,7 +96,7 @@ export function useSignInModal() {
   useEffect(() => {
     const fetchProviders = async () => {
       const providers = await getProviders();
-      setProviders(providers);
+      setProviders(providers!);
     };
     fetchProviders().catch((err) => console.log(err));
   }, []);
@@ -105,7 +109,7 @@ export function useSignInModal() {
         providers={providers}
       />
     );
-  }, [showSignInModal, setShowSignInModal]);
+  }, [providers, showSignInModal, setShowSignInModal]);
 
   return useMemo(
     () => ({ setShowSignInModal, SignInModal: SignInModalCallback }),

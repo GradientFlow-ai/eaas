@@ -8,7 +8,7 @@ import * as d3 from "d3";
 import { AxisLeft } from "./AxisLeft";
 import { AxisBottom } from "./AxisBottom";
 import { useState } from "react";
-import { InteractionData, Tooltip } from "./Tooltip";
+import { Tooltip } from "./Tooltip";
 
 import styles from "./scatterplot.module.css";
 
@@ -17,9 +17,9 @@ const MARGIN = { top: 60, right: 60, bottom: 60, left: 60 };
 type DataPoint = {
   x: number;
   y: number;
-  size: number;
-  group: string;
-  subGroup: string;
+  size?: number;
+  group?: string;
+  subGroup?: string;
 };
 
 type ScatterplotProps = {
@@ -32,7 +32,7 @@ const Scatterplot = ({ width, height, data }: ScatterplotProps) => {
   const boundsWidth = width - MARGIN.right - MARGIN.left;
   const boundsHeight = height - MARGIN.top - MARGIN.bottom;
 
-  const [hovered, setHovered] = useState<InteractionData | null>(null);
+  const [hovered, setHovered] = useState<any>(null);
   const [hoveredGroup, setHoveredGroup] = useState<string | null>(null);
 
   // Scales: transform a dimension of the data into a pixel position
@@ -53,7 +53,7 @@ const Scatterplot = ({ width, height, data }: ScatterplotProps) => {
         ? styles.scatterplotCircle + " " + styles.dimmed
         : styles.scatterplotCircle;
 
-    const color = colorScale(d.group);
+    const color = colorScale(d.group as string);
 
     return (
       <circle
@@ -75,7 +75,7 @@ const Scatterplot = ({ width, height, data }: ScatterplotProps) => {
             x: d.x,
             y: d.y,
           });
-          setHoveredGroup(d.group);
+          setHoveredGroup(d.group as string);
         }}
         onMouseLeave={() => {
           setHovered(null);

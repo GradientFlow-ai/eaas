@@ -1,7 +1,8 @@
 import { Configuration, OpenAIApi } from "openai";
 import supabaseClient from "@/lib/supabaseClient";
+import { NextApiRequest, NextApiResponse } from "next";
 
-async function generateEmbeddings(req, res) {
+async function generateEmbeddings(req: NextApiRequest, res: NextApiResponse) {
   const { body } = req;
   const configuration = new Configuration({
     apiKey: process.env.OPENAI_API_KEY as string,
