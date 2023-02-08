@@ -54,7 +54,7 @@ export default function Home() {
             Gapminder data, grouped with t-SNE
           </motion.p>
 
-          <Scatterplot data={visualizationData} width={800} height={800} />
+          <Scatterplot data={visualizationData} width={600} height={600} />
         </motion.div>
 
         <motion.div

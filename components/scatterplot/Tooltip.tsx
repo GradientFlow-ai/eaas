@@ -19,11 +19,11 @@ export const Tooltip = ({ interactionData }) => {
 
       <div className={styles.topHalfContainer} style={{ borderColor: color }}>
         <div className={styles.row}>
-          <span>Scaled vulnerability index</span>
+          <span>Vulnerability index</span>
           <b>{Math.round(x * 100) / 100}</b>
         </div>
         <div className={styles.row}>
-          <span>Scaled readiness index</span>
+          <span>Readiness index</span>
           <b>{Math.round(y * 100) / 100}</b>
         </div>
       </div>
@@ -36,7 +36,7 @@ export const Tooltip = ({ interactionData }) => {
           <br />
           (tons per capita)
         </span>
-        <b>{Math.round(size) / 1000000}</b>
+        <b>{(size / 10000000).toFixed(3)}</b>
       </div>
     </div>
   );
