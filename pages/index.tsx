@@ -18,10 +18,6 @@ export default function Home() {
   const [visualizationData, setVisualizationData] = useState(DUMMY_DATA);
 
   const fetchVisualizationData = useEffect(() => {
-    fetch("/api/python")
-      .then((res) => res.json())
-      .then((data) => console.log(data));
-
     fetch("/api/visualizations/tsne")
       .then((res) => res.json())
       .then((data) => setVisualizationData(data.data));

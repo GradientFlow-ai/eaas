@@ -79,7 +79,7 @@ const SignInModal = ({
         </div>
 
         <div className="flex flex-col space-y-4 bg-gray-50 px-4 py-8 md:px-16">
-          {Object.entries(providers).map(([key, value]) => (
+          {providers && Object.entries(providers).map(([key, value]) => (
             <SignInButton key={key} signIn={signIn} provider={value} />
           ))}
         </div>
@@ -106,7 +106,7 @@ export function useSignInModal() {
       <SignInModal
         showSignInModal={showSignInModal}
         setShowSignInModal={setShowSignInModal}
-        providers={providers || {}}
+        providers={providers}
       />
     );
   }, [providers, showSignInModal, setShowSignInModal]);
