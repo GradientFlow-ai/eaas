@@ -62,6 +62,7 @@ export default function Home() {
           variants={FADE_DOWN_ANIMATION_VARIANTS}
         >
           <TestViz />
+          <TestPython />
         </motion.div>
       </motion.div>
     </Layout>
@@ -119,6 +120,17 @@ const searchAPI = (query: string) =>
     .then((res) => res.json())
     .then((json) => console.log(json));
 
+const pythonAPI = (query: string) =>
+  fetch("/api/python/handlerTest", {
+    method: "POST",
+    headers: {
+      "Content-type": "application/json",
+    },
+    body: JSON.stringify({ query }),
+  })
+    .then((res) => res.json())
+    .then((json) => console.log(json));
+
 const TestEmbed = () => (
   <button
     className="flex max-w-fit items-center justify-center space-x-2 rounded-full border border-gray-300 bg-white px-5 py-2 text-sm text-gray-600 shadow-md transition-colors hover:border-gray-800"
@@ -135,6 +147,15 @@ const TestSearch = () => (
     onClick={() => searchAPI(`{ hello }`)}
   >
     <p>Get the most similar documents</p>
+  </button>
+);
+
+const TestPython = () => (
+  <button
+    className="flex max-w-fit items-center justify-center space-x-2 rounded-full border border-gray-300 bg-white px-5 py-2 text-sm text-gray-600 shadow-md transition-colors hover:border-gray-800"
+    onClick={() => pythonAPI(`{ hello }`)}
+  >
+    <p>Try Python</p>
   </button>
 );
 
@@ -162,7 +183,7 @@ const GithubStarAnchor = () => (
 const TwitterAnchor = () => (
   <motion.a
     variants={FADE_DOWN_ANIMATION_VARIANTS}
-    href="https://twitter.com/steventey/status/1613928948915920896"
+    href="https://twitter.com/danlovesproofs/status/1618745805950844930"
     target="_blank"
     rel="noreferrer"
     className="mx-auto mb-5 flex max-w-fit items-center justify-center space-x-2 overflow-hidden rounded-full bg-blue-100 px-7 py-2 transition-colors hover:bg-blue-200"
