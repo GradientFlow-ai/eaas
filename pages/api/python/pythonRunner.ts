@@ -13,9 +13,9 @@ const pythonShellWrapper = (script: string, options: Options) => {
   });
 };
 
-const pythonStringWrapper = (options: Options) => {
+const pythonStringWrapper = (script: string, options: Options) => {
   return new Promise((resolve, reject) => {
-    PythonShell.runString("x=1+1;print(x)", undefined, function (err, results) {
+    PythonShell.runString(script, undefined, function (err, results) {
       console.log(results);
       if (err) throw err;
       console.log("finished");
@@ -25,7 +25,7 @@ const pythonStringWrapper = (options: Options) => {
 const findPythonPath = (pyVersion: string) => {
   return new Promise((resolve, reject) => {
     cp.exec(
-      `ls /usr/bin | grep python`,
+      `whereis python`,
       { shell: "/bin/bash" },
       function (err: any, stdout: any, stderr: any) {
         if (err) {
@@ -39,22 +39,22 @@ const findPythonPath = (pyVersion: string) => {
 };
 
 const runPythonScript = async (script: string, args?: Options["args"]) => {
-  const pythonPath = await findPythonPath("python3");
-  console.log(pythonPath);
+  const pyPath =  await findPythonPath('hm')
+    console.log(pyPath)
   const options = {
     scriptPath: "pages/api/python/",
-    pythonPath,
+      pythonPath: "/usr/bin/python3"
   };
-  return "hello";
   // return pythonShellWrapper(script, options)
-  //   .then((results: any) => {
-  //     const parsed = JSON.parse(results[0]);
-  //     console.log(parsed);
-  //     return parsed;
-  //   })
-  //   .catch((err) => {
-  //     console.error(err);
-  //   });
+    return pythonStringWrapper(script, options)
+    .then((results: any) => {
+      const parsed = JSON.parse(results[0]);
+      console.log(parsed);
+      return parsed;
+    })
+    .catch((err) => {
+      console.error(err);
+    });
 };
 
 export default runPythonScript;

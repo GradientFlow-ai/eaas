@@ -27,3 +27,7 @@ export const DUMMY_DATA = [
   { x: 0.028188347949905455, y: -1 },
   { x: -0.5338914875808636, y: -0.01848535163329007 },
 ];
+
+export const microservicesApi = process.env.DEV
+  ? "http://localhost:3001/api"
+  : "https://micro-api.vercel.app/api";
