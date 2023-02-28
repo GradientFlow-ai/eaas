@@ -1,4 +1,8 @@
 import "@/styles/globals.css";
+import "@/styles/globals.scss";
+import "@fortawesome/fontawesome-svg-core/styles.css";
+import { SSRProvider } from "react-bootstrap";
+
 import type { AppProps } from "next/app";
 import { Analytics } from "@vercel/analytics/react";
 import type { Session } from "next-auth";
@@ -23,13 +27,15 @@ export default function MyApp({
   pageProps: { session, ...pageProps },
 }: AppProps<{ session: Session }>) {
   return (
-    <SessionProvider session={session}>
-      <RWBProvider>
-        <div className={cx(sfPro.variable, inter.variable)}>
-          <Component {...pageProps} />
-        </div>
-      </RWBProvider>
-      <Analytics />
-    </SessionProvider>
+    <SSRProvider>
+      <SessionProvider session={session}>
+        <RWBProvider>
+          <div className={cx(sfPro.variable, inter.variable)}>
+            <Component {...pageProps} />
+          </div>
+        </RWBProvider>
+        <Analytics />
+      </SessionProvider>
+    </SSRProvider>
   );
 }
