@@ -101,7 +101,6 @@ const Home: NextPage = () => (
                   x: {
                     grid: {
                       display: false,
-                      drawBorder: false,
                     },
                     ticks: {
                       display: false,
@@ -198,7 +197,6 @@ const Home: NextPage = () => (
                   x: {
                     grid: {
                       display: false,
-                      drawBorder: false,
                     },
                     ticks: {
                       display: false,
@@ -387,7 +385,6 @@ const Home: NextPage = () => (
                   y: {
                     grid: {
                       display: false,
-                      drawBorder: false,
                       drawTicks: false,
                     },
                     ticks: {

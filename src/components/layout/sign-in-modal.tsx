@@ -13,16 +13,22 @@ import { Mail } from "lucide-react";
 import Image from "next/image";
 
 type ButtonOptionsType = {
-    [key: string]: any
+  [key: string]: any;
 };
 
 const ButtonOptions: ButtonOptionsType = {
-    Google: Google,
-    GitHub: Github,
-    Email: Mail,
+  Google: Google,
+  GitHub: Github,
+  Email: Mail,
 };
 
-const SignInButton = ({ signIn, provider: { id, name } }: { signIn: (id: string) => void, provider: any }) => {
+const SignInButton = ({
+  signIn,
+  provider: { id, name },
+}: {
+  signIn: (id: string, optionalCallback: { callbackUrl: string }) => void;
+  provider: any;
+}) => {
   const [signInClicked, setSignInClicked] = useState(false);
   const Icon = useMemo(() => ButtonOptions[name], [name]);
   return (
@@ -35,7 +41,7 @@ const SignInButton = ({ signIn, provider: { id, name } }: { signIn: (id: string)
       } flex h-10 w-full items-center justify-center space-x-3 rounded-md border text-sm shadow-sm transition-all duration-75 focus:outline-none`}
       onClick={() => {
         setSignInClicked(true);
-        signIn(id);
+        signIn(id, { callbackUrl: "/dashboard" });
       }}
     >
       {signInClicked ? (
@@ -79,9 +85,10 @@ const SignInModal = ({
         </div>
 
         <div className="flex flex-col space-y-4 bg-gray-50 px-4 py-8 md:px-16">
-          {providers && Object.entries(providers).map(([key, value]) => (
-            <SignInButton key={key} signIn={signIn} provider={value} />
-          ))}
+          {providers &&
+            Object.entries(providers).map(([key, value]) => (
+              <SignInButton key={key} signIn={signIn} provider={value} />
+            ))}
         </div>
       </div>
     </Modal>
