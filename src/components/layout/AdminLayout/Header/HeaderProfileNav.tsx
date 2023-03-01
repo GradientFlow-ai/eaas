@@ -42,6 +42,8 @@ export default function HeaderProfileNav() {
   const { data: session } = useSession();
   const { email, image } = session?.user || {};
 
+  if (!email) return null;
+
   const logout = async () => {
     const res = await axios.post("/api/mock/logout");
     if (res.status === 200) {
@@ -59,7 +61,7 @@ export default function HeaderProfileNav() {
           id="dropdown-profile"
         >
           <div className="flex h-8 w-8 items-center justify-center overflow-hidden rounded-full border border-gray-300 transition-all duration-75 focus:outline-none active:scale-95 sm:h-9 sm:w-9">
-            <Image width={40} height={40} src={image} alt={email} />
+            <Image width={40} height={40} src={image as string} alt={email} />
           </div>
         </Dropdown.Toggle>
         <Dropdown.Menu className="pt-0">

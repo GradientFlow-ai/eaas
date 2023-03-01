@@ -4,14 +4,14 @@
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
-    "baseUrl": ".",
+    "baseUrl": "./src",
     "paths": {
-        "@layout/*": ["src/components/layout/*"],
-      "@/components/*": ["src/components/*"],
-      "@/pages/*": ["src/pages/*"],
-      "@/lib/*": ["src/lib/*"],
-        "@/styles/*": ["src/styles/*"],
-        "@layout": ["src/components/layout"]
+      "@layout/*": ["components/layout/*"],
+      "@/components/*": ["components/*"],
+      "@/pages/*": ["pages/*"],
+      "@/lib/*": ["lib/*"],
+      "@/styles/*": ["styles/*"],
+      "@layout": ["components/layout"]
     },
     "strict": true,
     "forceConsistentCasingInFileNames": true,
