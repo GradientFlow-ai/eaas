@@ -26,7 +26,7 @@ const SignInButton = ({
   signIn,
   provider: { id, name },
 }: {
-  signIn: (id: string, optionalCallback: { callbackUrl: string }) => void;
+  signIn: (id: string) => void;
   provider: any;
 }) => {
   const [signInClicked, setSignInClicked] = useState(false);
@@ -41,7 +41,7 @@ const SignInButton = ({
       } flex h-10 w-full items-center justify-center space-x-3 rounded-md border text-sm shadow-sm transition-all duration-75 focus:outline-none`}
       onClick={() => {
         setSignInClicked(true);
-        signIn(id, { callbackUrl: "/dashboard" });
+        signIn(id);
       }}
     >
       {signInClicked ? (
