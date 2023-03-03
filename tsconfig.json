@@ -6,12 +6,12 @@
     "skipLibCheck": true,
     "baseUrl": "./src",
     "paths": {
+      "@types/*": ["types"],
       "@layout/*": ["components/layout/*"],
       "@/components/*": ["components/*"],
       "@/pages/*": ["pages/*"],
       "@/lib/*": ["lib/*"],
       "@/styles/*": ["styles/*"],
-      "@layout": ["components/layout"]
     },
     "strict": true,
     "forceConsistentCasingInFileNames": true,

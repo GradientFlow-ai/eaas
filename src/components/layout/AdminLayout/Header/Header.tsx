@@ -17,37 +17,18 @@ export default function Header(props: HeaderProps) {
 
   return (
     <header className="header sticky-top border-bottom mb-4 p-2">
-      <Container fluid className="header-navbar d-flex align-items-center">
-        <Button
-          variant="link"
-          className="header-toggler md:me-4 rounded-none shadow-none md:hidden md:px-0"
-          type="button"
-          onClick={toggleSidebar}
-        >
-          <FontAwesomeIcon icon={faBars} />
-        </Button>
-        <Button
-          variant="link"
-          className="header-toggler d-none d-md-inline-block px-md-0 me-md-3 rounded-0 shadow-none"
-          type="button"
-          onClick={toggleSidebarMd}
-        >
-          <FontAwesomeIcon icon={faBars} />
-        </Button>
-        <div className="header-nav d-none d-md-flex">
-          <HeaderFeaturedNav />
-        </div>
+      <div className="header-navbar container flex items-center">
         <div className="header-nav ms-auto">
           <HeaderNotificationNav />
         </div>
         <div className="header-nav ms-2">
           <HeaderProfileNav />
         </div>
-      </Container>
+      </div>
       <div className="header-divider border-top ms-n2 me-n2 my-2" />
-      <Container fluid>
+      <div className="fluid container">
         <Breadcrumb />
-      </Container>
+      </div>
     </header>
   );
 }
