@@ -5,19 +5,30 @@ import { FormCheckRadio } from "../FormField";
 import { PillTag } from "../PillTag";
 import UserAvatar from "./UserAvatar";
 import { Github } from "@/components/shared/icons";
-import type { Icon } from "@layout/types";
-
-import { useSession } from "next-auth/react";
+import Image from "next/image";
 
 type Props = {
   className?: string;
   userName: string;
+  userImage?: string | null;
 };
 
-const UserCard = ({ className, userName }: Props) => {
+const UserImage = ({ userImage }: { userImage: string }) => (
+  <Image
+    width={80}
+    height={80}
+    src={userImage}
+    alt="Logged in user"
+    className="rounded-lg"
+  />
+);
+
+const UserCard = ({ className, userName, userImage }: Props) => {
+  console.log(userImage);
   return (
     <CardBox className={className}>
       <div className="flex flex-col items-center justify-around lg:flex-row lg:justify-center">
+        {userImage && <UserImage userImage={userImage} />}
         <div className="space-y-3 text-center md:text-left lg:mx-12">
           <div className="flex justify-center md:block">
             <Formik

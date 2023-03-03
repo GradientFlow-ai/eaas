@@ -1,6 +1,7 @@
 import {
   UserCircleIcon,
   LockClosedIcon,
+  LockOpenIcon,
   FireIcon,
   PaperAirplaneIcon,
   ArrowUpOnSquareIcon,
@@ -32,9 +33,21 @@ type UserForm = {
   name: string;
   email: string;
 };
+const AvatarUpload = () => (
+  <>
+    <CardBox className="mb-6">
+      <FormField label="Avatar" help="Max 500kb">
+        <FormFilePicker
+          label="Upload"
+          color="info"
+          icon={<ArrowUpOnSquareIcon />}
+        />
+      </FormField>
+    </CardBox>
+  </>
+);
 const ProfilePage = () => {
   const { data: session } = useSession();
-  console.log(session);
   const { email: userEmail, image, name: userName } = session?.user || {};
 
   const userForm: UserForm = {
@@ -45,20 +58,14 @@ const ProfilePage = () => {
   return (
     <>
       <SectionMain>
-        <UserCard className="mb-6" userName={userName || "friend"} />
+        <UserCard
+          className="mb-6"
+          userName={userName || "friend"}
+          userImage={image}
+        />
 
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
           <div className="flex flex-col">
-            <CardBox className="mb-6">
-              <FormField label="Avatar" help="Max 500kb">
-                <FormFilePicker
-                  label="Upload"
-                  color="info"
-                  icon={<ArrowUpOnSquareIcon />}
-                />
-              </FormField>
-            </CardBox>
-
             <CardBox className="flex-1" hasComponentLayout>
               <Formik
                 initialValues={userForm}
@@ -127,7 +134,7 @@ const ProfilePage = () => {
                     label="New password"
                     help="Required. New password"
                     labelFor="newPassword"
-                    icon={<LockClosedIcon />}
+                    icon={<LockOpenIcon />}
                   >
                     <Field
                       name="newPassword"
