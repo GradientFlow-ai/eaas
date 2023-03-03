@@ -104,3 +104,5 @@ $$;
 
 ## To Dos
     - configure policies for supa
+    - Convert dashboard [ from Bootstrap to Tailwind ](https://tools.bitfertig.de/bootstrap2tailwind/index.php)
+    - Add [ Tailwind styled components ](https://github.com/MathiasGilson/tailwind-styled-component)
