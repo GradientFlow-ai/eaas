@@ -3,7 +3,6 @@ import { faBars } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import Breadcrumb from "@layout/AdminLayout/Breadcrumb/Breadcrumb";
 import HeaderFeaturedNav from "@layout/AdminLayout/Header/HeaderFeaturedNav";
-import HeaderNotificationNav from "@layout/AdminLayout/Header/HeaderNotificationNav";
 import HeaderProfileNav from "@layout/AdminLayout/Header/HeaderProfileNav";
 import { Button, Container } from "react-bootstrap";
 
@@ -19,9 +18,6 @@ export default function Header(props: HeaderProps) {
     <header className="header sticky-top border-bottom mb-4 p-2">
       <div className="header-navbar container flex items-center">
         <div className="header-nav ms-auto">
-          <HeaderNotificationNav />
-        </div>
-        <div className="header-nav ms-2">
           <HeaderProfileNav />
         </div>
       </div>
