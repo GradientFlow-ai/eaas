@@ -1,24 +1,12 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faAddressCard,
-  faBell,
   faFileLines,
-  faStar,
   IconDefinition,
 } from "@fortawesome/free-regular-svg-icons";
 import {
-  faBug,
-  faCalculator,
-  faChartPie,
   faChevronUp,
-  faCode,
-  faDroplet,
   faGauge,
-  faLayerGroup,
   faLocationArrow,
-  faPencil,
-  faPuzzlePiece,
-  faRightToBracket,
 } from "@fortawesome/free-solid-svg-icons";
 import React, {
   PropsWithChildren,
@@ -29,7 +17,6 @@ import React, {
 import {
   Accordion,
   AccordionContext,
-  Badge,
   Button,
   Nav,
   useAccordionButton,
@@ -139,64 +126,26 @@ const SidebarNavGroup = (props: SidebarNavGroupProps) => {
   );
 };
 
+const Collections = () => (
+  <>
+    <SidebarNavGroup toggleIcon={faLocationArrow} toggleText="Collections">
+      <SidebarNavItem href="buttons/buttons.html">Buttons</SidebarNavItem>
+      <SidebarNavItem href="buttons/button-group.html">
+        Buttons Group
+      </SidebarNavItem>
+      <SidebarNavItem href="buttons/dropdowns.html">Dropdowns</SidebarNavItem>
+    </SidebarNavGroup>
+  </>
+);
+
 export default function SidebarNav() {
   return (
     <ul className="list-unstyled">
       <SidebarNavItem icon={faGauge} href="/dashboard">
         Dashboard
       </SidebarNavItem>
-      <SidebarNavTitle>Theme</SidebarNavTitle>
-      <SidebarNavItem icon={faDroplet} href="colors.html">
-        Colors
-      </SidebarNavItem>
-      <SidebarNavItem icon={faPencil} href="typography.html">
-        Typography
-      </SidebarNavItem>
 
-      <SidebarNavGroup toggleIcon={faLocationArrow} toggleText="Buttons">
-        <SidebarNavItem href="buttons/buttons.html">Buttons</SidebarNavItem>
-        <SidebarNavItem href="buttons/button-group.html">
-          Buttons Group
-        </SidebarNavItem>
-        <SidebarNavItem href="buttons/dropdowns.html">Dropdowns</SidebarNavItem>
-      </SidebarNavGroup>
-
-      <SidebarNavItem icon={faChartPie} href="charts.html">
-        Charts
-      </SidebarNavItem>
-
-      <SidebarNavGroup toggleIcon={faFileLines} toggleText="Forms">
-        <SidebarNavItem href="forms/form-control.html">
-          Form Control
-        </SidebarNavItem>
-        <SidebarNavItem href="forms/select.html">Select</SidebarNavItem>
-        <SidebarNavItem href="forms/checks-radios.html">
-          Checks and radios
-        </SidebarNavItem>
-        <SidebarNavItem href="forms/range.html">Range</SidebarNavItem>
-        <SidebarNavItem href="forms/input-group.html">
-          Input group
-        </SidebarNavItem>
-        <SidebarNavItem href="forms/floating-labels.html">
-          Floating labels
-        </SidebarNavItem>
-        <SidebarNavItem href="forms/layout.html">Layout</SidebarNavItem>
-        <SidebarNavItem href="forms/validation.html">Validation</SidebarNavItem>
-      </SidebarNavGroup>
-
-      <SidebarNavGroup toggleIcon={faBell} toggleText="Notifications">
-        <SidebarNavItem href="notifications/alerts.html">Alerts</SidebarNavItem>
-        <SidebarNavItem href="notifications/badge.html">Badge</SidebarNavItem>
-        <SidebarNavItem href="notifications/modals.html">Modals</SidebarNavItem>
-        <SidebarNavItem href="notifications/toasts.html">Toasts</SidebarNavItem>
-      </SidebarNavGroup>
-
-      <SidebarNavItem icon={faCalculator} href="widgets.html">
-        Widgets
-        <small className="ms-auto">
-          <Badge bg="info">NEW</Badge>
-        </small>
-      </SidebarNavItem>
+      <Collections />
 
       <SidebarNavTitle>Extras</SidebarNavTitle>
 
