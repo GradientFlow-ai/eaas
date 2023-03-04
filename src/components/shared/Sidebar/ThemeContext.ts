@@ -24,6 +24,8 @@ type ContextTheme = {
   setTheme: Function;
   bgColor: string;
   setBgColor: Function;
+  showSidebar: boolean;
+  setShowSidebar: Function;
 };
 
 export const ThemeContext = createContext({} as ContextTheme);

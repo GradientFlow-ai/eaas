@@ -1,143 +1,97 @@
-import type { NextPage } from "next";
-import Image from "next/image";
-import { AdminLayout } from "@/components/layout";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faArrowDown,
-  faArrowUp,
-  faDownload,
-  faEllipsisVertical,
-  faMars,
-  faSearch,
-  faUsers,
-  faVenus,
-} from "@fortawesome/free-solid-svg-icons";
-import {
-  Button,
-  ButtonGroup,
-  Card,
-  Dropdown,
-  ProgressBar,
-} from "react-bootstrap";
-import { Bar, Line } from "react-chartjs-2";
-import {
-  BarElement,
-  CategoryScale,
-  Chart,
-  Filler,
-  LinearScale,
-  LineElement,
-  PointElement,
-  Tooltip,
-} from "chart.js";
-import {
-  faCcAmex,
-  faCcApplePay,
-  faCcPaypal,
-  faCcStripe,
-  faCcVisa,
-  faFacebookF,
-  faLinkedinIn,
-  faTwitter,
-} from "@fortawesome/free-brands-svg-icons";
+import React, { useState, useEffect, useContext } from "react";
+import { Transition } from "@headlessui/react";
 
-const Home: NextPage = () => (
-  <AdminLayout>
-    <div className="row">
-      <div className="col-sm-6 col-lg-4">
-        <Card
-          className="mb-4"
-          style={{ "--bs-card-cap-bg": "#3b5998" } as React.CSSProperties}
-        >
-          <Card.Header className="d-flex justify-content-center align-items-center">
-            <FontAwesomeIcon
-              icon={faFacebookF}
-              fixedWidth
-              size="3x"
-              className="my-4 text-white"
-            />
-          </Card.Header>
-          <Card.Body>
-            <div className="row text-center">
-              <div className="col">
-                <div className="fs-5 fw-semibold">89k</div>
-                <div className="text-uppercase text-black-50 small">
-                  friends
-                </div>
-              </div>
-              <div className="vr p-0" />
-              <div className="col">
-                <div className="fs-5 fw-semibold">459</div>
-                <div className="text-uppercase text-black-50 small">feeds</div>
-              </div>
-            </div>
-          </Card.Body>
-        </Card>
-      </div>
+import {
+  themes,
+  ThemeContext,
+  Sidebar,
+  ThemeToggle,
+} from "@components/shared/Sidebar";
 
-      <div className="col-sm-6 col-lg-4">
-        <Card
-          className="mb-4"
-          style={{ "--bs-card-cap-bg": "#00aced" } as React.CSSProperties}
-        >
-          <Card.Header className="d-flex justify-content-center align-items-center">
-            <FontAwesomeIcon
-              icon={faTwitter}
-              fixedWidth
-              size="3x"
-              className="my-4 text-white"
-            />
-          </Card.Header>
-          <Card.Body>
-            <div className="row text-center">
-              <div className="col">
-                <div className="fs-5 fw-semibold">973k</div>
-                <div className="text-uppercase text-black-50 small">
-                  followers
-                </div>
-              </div>
-              <div className="vr p-0" />
-              <div className="col">
-                <div className="fs-5 fw-semibold">1.792</div>
-                <div className="text-uppercase text-black-50 small">tweets</div>
-              </div>
-            </div>
-          </Card.Body>
-        </Card>
-      </div>
+const Dashboard = () => {
+  const [theme, setTheme] = useState(themes.dark);
+  const [bgColor, setBgColor] = useState("indigo");
+  const [showSidebar, setShowSidebar] = useState(false);
 
-      <div className="col-sm-6 col-lg-4">
-        <Card
-          className="mb-4"
-          style={{ "--bs-card-cap-bg": "#4875b4" } as React.CSSProperties}
-        >
-          <Card.Header className="d-flex justify-content-center align-items-center">
-            <FontAwesomeIcon
-              icon={faLinkedinIn}
-              fixedWidth
-              size="3x"
-              className="my-4 text-white"
-            />
-          </Card.Header>
-          <Card.Body>
-            <div className="row text-center">
-              <div className="col">
-                <div className="fs-5 fw-semibold">500+</div>
-                <div className="text-uppercase text-black-50 small">
-                  contacts
-                </div>
-              </div>
-              <div className="vr p-0" />
-              <div className="col">
-                <div className="fs-5 fw-semibold">292</div>
-                <div className="text-uppercase text-black-50 small">feeds</div>
-              </div>
-            </div>
-          </Card.Body>
-        </Card>
+  return (
+    <ThemeContext.Provider
+      value={{
+        bgColor,
+        showSidebar,
+        setShowSidebar,
+        theme,
+        setTheme,
+        setBgColor,
+      }}
+    >
+      <MainLayout />
+    </ThemeContext.Provider>
+  );
+};
+
+export default Dashboard;
+
+function MainLayout() {
+  const value = useContext(ThemeContext);
+
+  return (
+    <div
+      className={`relative flex py-${
+        value.showSidebar ? "4" : "0"
+      } h-screen w-screen justify-start space-x-4 `}
+    >
+      <Transition
+        show={value.showSidebar}
+        enter="transition-opacity ease-linear duration-300"
+        enterFrom="opacity-0"
+        enterTo="opacity-100"
+        leave="transition-opacity ease-linear duration-300"
+        leaveFrom="opacity-100"
+        leaveTo="opacity-0"
+      >
+        <Sidebar />
+      </Transition>
+
+      <div
+        className={`flex w-full flex-col p-${
+          value.showSidebar ? "4" : "0"
+        } flex-1 rounded-l-lg bg-opacity-30 bg-clip-padding
+         shadow bg-${value.bgColor}-${value.theme.profile}`}
+      >
+        <Navbar />
+        <div className="flex justify-end">
+          <ThemeToggle />
+        </div>
       </div>
     </div>
-  </AdminLayout>
-);
+  );
+}
 
-export default Home;
+function Navbar() {
+  const value = useContext(ThemeContext);
+
+  return (
+    <div
+      className={`flex w-full items-center justify-between rounded px-4 py-2 bg-${value.bgColor}-${value.theme.main}`}
+    >
+      <svg
+        onClick={() => value.setShowSidebar((s: boolean) => !s)}
+        xmlns="http://www.w3.org/2000/svg"
+        className="h-5 w-5"
+        viewBox="0 0 20 20"
+        fill="currentColor"
+      >
+        <path
+          fillRule="evenodd"
+          d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h6a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+          clipRule="evenodd"
+        />
+      </svg>
+      <nav className="hidden space-x-8 px-8 py-2 sm:flex">
+        {["Home", "About", "Features", "Service", "Contact"].map((a, idx) => {
+          return <div key={idx}>{a}</div>;
+        })}
+      </nav>
+    </div>
+  );
+}

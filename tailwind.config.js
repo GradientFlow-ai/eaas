@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 const plugin = require("tailwindcss/plugin");
+const colors = require("tailwindcss/colors");
 
 module.exports = {
   content: [
@@ -10,6 +11,7 @@ module.exports = {
     hoverOnlyWhenSupported: true,
   },
   theme: {
+    colors: { ...colors },
     extend: {
       fontFamily: {
         display: ["var(--font-sf)", "system-ui", "sans-serif"],
