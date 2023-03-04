@@ -4,7 +4,7 @@ import { CardBox } from "../CardBox";
 import { FormCheckRadio } from "../FormField";
 import { PillTag } from "../PillTag";
 import UserAvatar from "./UserAvatar";
-import { Github } from "@/components/shared/icons";
+import { Github } from "@components/shared/icons";
 import Image from "next/image";
 
 type Props = {

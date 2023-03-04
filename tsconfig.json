@@ -9,6 +9,7 @@
       "@types/*": ["types"],
       "@layout/*": ["components/layout/*"],
       "@/components/*": ["components/*"],
+      "@components/*": ["components/*"],
       "@/pages/*": ["pages/*"],
       "@/lib/*": ["lib/*"],
       "@/styles/*": ["styles/*"],

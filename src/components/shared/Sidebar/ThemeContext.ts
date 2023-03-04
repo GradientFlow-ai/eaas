@@ -19,4 +19,11 @@ export const themes = {
   },
 };
 
-export const ThemeContext = createContext(themes);
+type ContextTheme = {
+  theme: typeof themes.light;
+  setTheme: Function;
+  bgColor: string;
+  setBgColor: Function;
+};
+
+export const ThemeContext = createContext({} as ContextTheme);
