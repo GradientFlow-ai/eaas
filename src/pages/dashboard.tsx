@@ -1,73 +1,51 @@
-import React, { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Transition } from "@headlessui/react";
 
-import {
-  themes,
-  ThemeContext,
-  Sidebar,
-  ThemeToggle,
-} from "@components/shared/Sidebar";
+import { Layout } from "@components/layout";
 
-const Dashboard = () => {
-  const [theme, setTheme] = useState(themes.dark);
-  const [bgColor, setBgColor] = useState("indigo");
+import { ThemeContext, Sidebar, ThemeToggle } from "@components/shared/Sidebar";
+
+function Dashboard() {
+  const value = useContext(ThemeContext);
   const [showSidebar, setShowSidebar] = useState(false);
 
   return (
-    <ThemeContext.Provider
-      value={{
-        bgColor,
-        showSidebar,
-        setShowSidebar,
-        theme,
-        setTheme,
-        setBgColor,
-      }}
-    >
-      <MainLayout />
-    </ThemeContext.Provider>
-  );
-};
-
-export default Dashboard;
-
-function MainLayout() {
-  const value = useContext(ThemeContext);
-
-  return (
-    <div
-      className={`relative flex py-${
-        value.showSidebar ? "4" : "0"
-      } h-screen w-screen justify-start space-x-4 `}
-    >
-      <Transition
-        show={value.showSidebar}
-        enter="transition-opacity ease-linear duration-300"
-        enterFrom="opacity-0"
-        enterTo="opacity-100"
-        leave="transition-opacity ease-linear duration-300"
-        leaveFrom="opacity-100"
-        leaveTo="opacity-0"
-      >
-        <Sidebar />
-      </Transition>
-
+    <Layout>
       <div
-        className={`flex w-full flex-col p-${
+        className={`relative flex py-${
           value.showSidebar ? "4" : "0"
-        } flex-1 rounded-l-lg bg-opacity-30 bg-clip-padding
-         shadow bg-${value.bgColor}-${value.theme.profile}`}
+        } h-screen w-screen justify-start space-x-4 `}
       >
-        <Navbar />
-        <div className="flex justify-end">
-          <ThemeToggle />
+        <Transition
+          show={showSidebar}
+          enter="transition-opacity ease-linear duration-300"
+          enterFrom="opacity-0"
+          enterTo="opacity-100"
+          leave="transition-opacity ease-linear duration-300"
+          leaveFrom="opacity-100"
+          leaveTo="opacity-0"
+        >
+          <Sidebar />
+        </Transition>
+
+        <div
+          className={`flex w-full flex-col p-${
+            showSidebar ? "4" : "0"
+          } flex-1 rounded-l-lg bg-opacity-30 bg-clip-padding
+         shadow bg-${value.bgColor}-${value.theme.profile}`}
+        >
+          <div className="flex justify-end">
+            <ThemeToggle />
+          </div>
         </div>
       </div>
-    </div>
+    </Layout>
   );
 }
 
-function Navbar() {
+export default Dashboard;
+
+function Navbar({ setShowSidebar }) {
   const value = useContext(ThemeContext);
 
   return (
@@ -75,7 +53,7 @@ function Navbar() {
       className={`flex w-full items-center justify-between rounded px-4 py-2 bg-${value.bgColor}-${value.theme.main}`}
     >
       <svg
-        onClick={() => value.setShowSidebar((s: boolean) => !s)}
+        onClick={() => setShowSidebar((s: boolean) => !s)}
         xmlns="http://www.w3.org/2000/svg"
         className="h-5 w-5"
         viewBox="0 0 20 20"
