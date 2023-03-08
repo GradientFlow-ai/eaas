@@ -1,7 +1,12 @@
-import Card from "components/home/card";
-import { Layout } from "components/layout";
+import { useContext, useEffect, useState } from "react";
+import Image from "next/image";
 import Balancer from "react-wrap-balancer";
 import { motion } from "framer-motion";
+
+import Card from "components/home/card";
+import { Layout } from "components/layout";
+import { ThemeContext } from "state";
+
 import {
   DEPLOY_URL,
   FADE_DOWN_ANIMATION_VARIANTS,
@@ -10,11 +15,10 @@ import {
 import { Github, Twitter } from "components/shared/icons";
 import WebVitals from "components/home/web-vitals";
 import ComponentGrid from "components/home/component-grid";
-import Image from "next/image";
 import Scatterplot from "components/scatterplot";
-import { useEffect, useState } from "react";
 
 export default function Home() {
+  const { theme } = useContext(ThemeContext);
   const [visualizationData, setVisualizationData] = useState(DUMMY_DATA);
 
   const fetchVisualizationData = useEffect(() => {

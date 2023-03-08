@@ -27,15 +27,12 @@ export default function MyApp({
   Component,
   pageProps: { session, ...pageProps },
 }: AppProps<{ session: Session }>) {
-  const [theme, setTheme] = useState(themes.dark);
-  const [bgColor, setBgColor] = useState("indigo");
+  const [theme, setTheme] = useState(themes.landing);
 
   return (
     <SessionProvider session={session}>
       <ThemeContext.Provider
         value={{
-          bgColor,
-          setBgColor,
           theme,
           setTheme,
         }}

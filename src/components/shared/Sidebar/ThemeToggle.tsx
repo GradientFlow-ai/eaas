@@ -2,7 +2,7 @@ import { useContext, useState, useEffect } from "react";
 import { ThemeContext, themes } from "state";
 
 const ThemeToggle = () => {
-  const { setTheme, setBgColor, theme, bgColor } = useContext(ThemeContext);
+  const { setTheme, theme } = useContext(ThemeContext);
   const [enabled, setEnabled] = useState(true);
   useEffect(() => {
     setTheme(enabled ? themes.dark : themes.light);
@@ -17,14 +17,14 @@ const ThemeToggle = () => {
           checked={enabled}
           onChange={(e) => setEnabled(e.target.checked)}
         />
-        {theme.name}
+        {"hi there"}
       </div>
       <div className="py-16">
         <select
-          className={`rounded px-4 py-2 text-white text-${bgColor}-700`}
-          value={bgColor}
+          className={`rounded px-4 py-2 text-white text-${theme.bgColor}-700`}
+          value={theme.bgColor}
           onChange={(e) => {
-            setBgColor(e.target.value);
+            setTheme({ bgColor: e.target.value });
           }}
         >
           <option className="text-indigo-700" value={"indigo"}>

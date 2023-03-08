@@ -17,13 +17,37 @@ export const themes = {
     notify: 200,
     text: 100,
   },
+  landing: {
+    bgColor: "indigo",
+    name: "dark",
+    main: 700,
+    profile: 400,
+    notify: 200,
+    text: 100,
+  },
+  dashboard: {
+    bgColor: "indigo",
+    name: "dark",
+    main: 700,
+    profile: 400,
+    notify: 200,
+    text: 100,
+  },
+  sidebar: {
+    bgColor: "indigo",
+    name: "dark",
+    main: 700,
+    profile: 400,
+    notify: 200,
+    text: 100,
+  },
 };
 
-type ContextTheme = {
-  theme: typeof themes.light;
+export type Theme = typeof themes.light;
+
+export type ContextTheme = {
+  theme: Theme;
   setTheme: Function;
-  bgColor: string;
-  setBgColor: Function;
 };
 
 export const ThemeContext = createContext({} as ContextTheme);

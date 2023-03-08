@@ -7,7 +7,7 @@ import { ThemeContext } from "state";
 import { Sidebar, ThemeToggle } from "components/shared/Sidebar";
 
 function Dashboard() {
-  const value = useContext(ThemeContext);
+  const { theme, setTheme } = useContext(ThemeContext);
   const [showSidebar, setShowSidebar] = useState(false);
 
   return (
@@ -33,7 +33,7 @@ function Dashboard() {
           className={`flex w-full flex-col p-${
             showSidebar ? "4" : "0"
           } flex-1 rounded-l-lg bg-opacity-30 bg-clip-padding
-         shadow bg-${value.bgColor}-${value.theme.profile}`}
+         shadow bg-${theme.bgColor}-${theme.profile}`}
         >
           <div className="flex justify-end">
             <ThemeToggle />
@@ -46,12 +46,18 @@ function Dashboard() {
 
 export default Dashboard;
 
-function Navbar({ setShowSidebar }: { setShowSidebar: Function }) {
+function Navbar({
+  setShowSidebar,
+  theme,
+}: {
+  setShowSidebar: Function,
+  theme: any,
+}) {
   const value = useContext(ThemeContext);
 
   return (
     <div
-      className={`flex w-full items-center justify-between rounded px-4 py-2 bg-${value.bgColor}-${value.theme.main}`}
+      className={`flex w-full items-center justify-between rounded px-4 py-2 bg-${theme.bgColor}-${theme.main}`}
     >
       <svg
         onClick={() => setShowSidebar((s: boolean) => !s)}

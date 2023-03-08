@@ -2,6 +2,111 @@ import React, { useContext } from "react";
 
 import { ThemeContext, themes } from "state";
 
+const SideBar = () => {
+  const { theme } = useContext(ThemeContext);
+
+  return (
+    <div className={`flex w-64 flex-col px-6  `}>
+      {/* {Header Section} */}
+      <div className={`flex h-24 w-full items-center justify-start space-x-8 `}>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="h-6 w-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+          />
+        </svg>
+        <span className="font-sans text-lg font-medium">Smartcodehub</span>
+      </div>
+      <div
+        className={`flex h-full flex-1 flex-col border-t border-b py-8 border-${theme.bgColor}-${theme.text} border-opacity-25`}
+      >
+        <div
+          className={`flex w-full items-center justify-between space-x-2 p-3 text-${theme.bgColor}-${theme.text} bg-${theme.bgColor}-${theme.profile} rounded-lg bg-opacity-70 `}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-5 w-5"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+          >
+            <path
+              fillRule="evenodd"
+              d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
+              clipRule="evenodd"
+            />
+          </svg>
+          <div className="flex flex-1 flex-col">
+            <h2 className="text-sm">Neeraj Dana</h2>
+            <span
+              className={`text-xs font-semibold text-${theme.bgColor}-${theme.text}`}
+            >
+              See Details
+            </span>
+          </div>
+
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-5 w-5"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+          >
+            <path
+              fillRule="evenodd"
+              d="M10 3a1 1 0 01.707.293l3 3a1 1 0 01-1.414 1.414L10 5.414 7.707 7.707a1 1 0 01-1.414-1.414l3-3A1 1 0 0110 3zm-3.707 9.293a1 1 0 011.414 0L10 14.586l2.293-2.293a1 1 0 011.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"
+              clipRule="evenodd"
+            />
+          </svg>
+        </div>
+        <div className="flex flex-1 flex-col py-4">
+          <div
+            className={`flex flex-col space-y-2 text-${theme.bgColor}-${theme.text}`}
+          >
+            {items.map((a) => {
+              return (
+                <div className="flex w-full items-center space-x-4 p-2">
+                  {a.Icon()}
+                  <span className="text-sm font-semibold">{a.name}</span>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        <div
+          className={`flex w-full flex-col space-y-2 p-6 text-${theme.bgColor}-${theme.text} bg-${theme.bgColor}-${theme.notify} rounded-lg bg-opacity-20`}
+        >
+          <h3 className="text-sm font-semibold">Used Space</h3>
+          <p className="text-sm">Admin is updated and i am not</p>
+        </div>
+      </div>
+      <div
+        className={`flex items-center justify-start py-6 text-${theme.bgColor}-${theme.text} border-t border-b border-gray-100 border-opacity-25`}
+      >
+        <img src={userProfileImage} className="mr-4 h-12 w-12 rounded-full" />
+        <span className="flex-1 text-sm font-semibold">Neeraj Dana</span>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="h-5 w-5"
+          viewBox="0 0 20 20"
+          fill="currentColor"
+        >
+          <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z" />
+        </svg>
+      </div>
+    </div>
+  );
+};
+
+export default SideBar;
+
 const userProfileImage = `https://scontent.fdel42-1.fna.fbcdn.net/v/t1.6435-9/57624905_2442339965785962_6352756075350982656_n.jpg?_nc_cat=101&ccb=1-3&_nc_sid=174925&_nc_ohc=vNjPtukrl6MAX_1iIFs&_nc_ht=scontent.fdel42-1.fna&oh=9ed8dc4a27d05303d511afcd58ab9cbc&oe=60A4B81A`;
 const items = [
   {
@@ -63,108 +168,3 @@ const items = [
     ),
   },
 ];
-
-const SideBar = () => {
-  const value = useContext(ThemeContext);
-
-  return (
-    <div className={`flex w-64 flex-col px-6  `}>
-      {/* {Header Section} */}
-      <div className={`flex h-24 w-full items-center justify-start space-x-8 `}>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-6 w-6"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
-          />
-        </svg>
-        <span className="font-sans text-lg font-medium">Smartcodehub</span>
-      </div>
-      <div
-        className={`flex h-full flex-1 flex-col border-t border-b py-8 border-${value.bgColor}-${value.theme.text} border-opacity-25`}
-      >
-        <div
-          className={`flex w-full items-center justify-between space-x-2 p-3 text-${value.bgColor}-${value.theme.text} bg-${value.bgColor}-${value.theme.profile} rounded-lg bg-opacity-70 `}
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-5 w-5"
-            viewBox="0 0 20 20"
-            fill="currentColor"
-          >
-            <path
-              fillRule="evenodd"
-              d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
-              clipRule="evenodd"
-            />
-          </svg>
-          <div className="flex flex-1 flex-col">
-            <h2 className="text-sm">Neeraj Dana</h2>
-            <span
-              className={`text-xs font-semibold text-${value.bgColor}-${value.theme.text}`}
-            >
-              See Details
-            </span>
-          </div>
-
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-5 w-5"
-            viewBox="0 0 20 20"
-            fill="currentColor"
-          >
-            <path
-              fillRule="evenodd"
-              d="M10 3a1 1 0 01.707.293l3 3a1 1 0 01-1.414 1.414L10 5.414 7.707 7.707a1 1 0 01-1.414-1.414l3-3A1 1 0 0110 3zm-3.707 9.293a1 1 0 011.414 0L10 14.586l2.293-2.293a1 1 0 011.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"
-              clipRule="evenodd"
-            />
-          </svg>
-        </div>
-        <div className="flex flex-1 flex-col py-4">
-          <div
-            className={`flex flex-col space-y-2 text-${value.bgColor}-${value.theme.text}`}
-          >
-            {items.map((a) => {
-              return (
-                <div className="flex w-full items-center space-x-4 p-2">
-                  {a.Icon()}
-                  <span className="text-sm font-semibold">{a.name}</span>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-
-        <div
-          className={`flex w-full flex-col space-y-2 p-6 text-${value.bgColor}-${value.theme.text} bg-${value.bgColor}-${value.theme.notify} rounded-lg bg-opacity-20`}
-        >
-          <h3 className="text-sm font-semibold">Used Space</h3>
-          <p className="text-sm">Admin is updated and i am not</p>
-        </div>
-      </div>
-      <div
-        className={`flex items-center justify-start py-6 text-${value.bgColor}-${value.theme.text} border-t border-b border-gray-100 border-opacity-25`}
-      >
-        <img src={userProfileImage} className="mr-4 h-12 w-12 rounded-full" />
-        <span className="flex-1 text-sm font-semibold">Neeraj Dana</span>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-5 w-5"
-          viewBox="0 0 20 20"
-          fill="currentColor"
-        >
-          <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z" />
-        </svg>
-      </div>
-    </div>
-  );
-};
-
-export default SideBar;
