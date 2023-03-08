@@ -1,5 +1,5 @@
 import { Configuration, OpenAIApi } from "openai";
-import supabaseClient from "@/lib/supabaseClient";
+import supabaseClient from "lib/supabaseClient";
 import { NextApiRequest, NextApiResponse } from "next";
 
 async function generateEmbeddings(req: NextApiRequest, res: NextApiResponse) {

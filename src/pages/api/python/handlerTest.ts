@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import runPythonScript from "./pythonRunner";
-import { microservicesApi } from "@/lib/constants";
+import { microservicesApi } from "lib/constants";
 
 export default async function handler(
   req: NextApiRequest,

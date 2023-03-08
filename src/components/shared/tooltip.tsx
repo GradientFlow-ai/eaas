@@ -1,7 +1,7 @@
 import { ReactNode, useState } from "react";
 import * as TooltipPrimitive from "@radix-ui/react-tooltip";
 import { AnimatePresence } from "framer-motion";
-import useWindowSize from "@/lib/hooks/use-window-size";
+import useWindowSize from "lib/hooks/use-window-size";
 import Leaflet from "./leaflet";
 
 export default function Tooltip({

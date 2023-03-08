@@ -1,6 +1,6 @@
 import TSNE from "tsne-js";
-import supabaseClient from "@/lib/supabaseClient";
-import prisma from "@/lib/prisma";
+import supabaseClient from "lib/supabaseClient";
+import prisma from "lib/prisma";
 import { NextApiRequest, NextApiResponse } from "next";
 
 const makeVisualization = async (req: NextApiRequest, res: NextApiResponse) => {

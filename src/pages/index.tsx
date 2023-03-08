@@ -6,7 +6,7 @@ import {
   DEPLOY_URL,
   FADE_DOWN_ANIMATION_VARIANTS,
   DUMMY_DATA,
-} from "@/lib/constants";
+} from "lib/constants";
 import { Github, Twitter } from "components/shared/icons";
 import WebVitals from "components/home/web-vitals";
 import ComponentGrid from "components/home/component-grid";

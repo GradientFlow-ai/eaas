@@ -1,6 +1,6 @@
 import { Configuration, OpenAIApi } from "openai";
-import supabaseClient from "@/lib/supabaseClient";
-import prisma from "@/lib/prisma";
+import supabaseClient from "lib/supabaseClient";
+import prisma from "lib/prisma";
 import { NextApiRequest, NextApiResponse } from "next";
 
 // const makePrismaQueryString = (
