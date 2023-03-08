@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 
 import Card from "components/home/card";
 import { Layout } from "components/layout";
-import { ThemeContext, themes } from "state";
+import { AppContext, themes } from "state";
 
 import {
   DEPLOY_URL,
@@ -18,10 +18,10 @@ import ComponentGrid from "components/home/component-grid";
 import Scatterplot from "components/scatterplot";
 
 export default function Home() {
-  const { theme, setTheme } = useContext(ThemeContext);
+  const { theme, setTheme, setAppState } = useContext(AppContext);
   const [visualizationData, setVisualizationData] = useState(DUMMY_DATA);
 
-  useEffect(() => setTheme(themes.landing), [setTheme]);
+  useEffect(() => setTheme("landing"), [setTheme]);
 
   const fetchVisualizationData = useEffect(() => {
     fetch("/api/visualizations/tsne")

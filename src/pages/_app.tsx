@@ -11,7 +11,7 @@ import cx from "classnames";
 import localFont from "@next/font/local";
 import { Inter } from "@next/font/google";
 
-import { ThemeContext, themes } from "state";
+import { baseAppState, AppContext, ContextApp } from "state";
 
 const sfPro = localFont({
   src: "../styles/SF-Pro-Display-Medium.otf",
@@ -27,20 +27,22 @@ export default function MyApp({
   Component,
   pageProps: { session, ...pageProps },
 }: AppProps<{ session: Session }>) {
-  const [theme, setTheme] = useState(themes.landing);
+  const [currentTheme, setCurrentTheme] = useState("landing");
+  const [appState, setAppState] = useState(baseAppState);
+
+  const appContext = {
+    ...ContextApp,
+    setTheme: setCurrentTheme,
+    setAppState,
+  };
 
   return (
     <SessionProvider session={session}>
-      <ThemeContext.Provider
-        value={{
-          theme,
-          setTheme,
-        }}
-      >
+      <AppContext.Provider value={appContext}>
         <div className={cx(sfPro.variable, inter.variable)}>
           <Component {...pageProps} />
         </div>
-      </ThemeContext.Provider>
+      </AppContext.Provider>
       <Analytics />
     </SessionProvider>
   );

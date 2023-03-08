@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useMemo } from "react";
 import { FADE_IN_ANIMATION_SETTINGS } from "lib/constants";
 import { AnimatePresence, motion } from "framer-motion";
 import { useSession } from "next-auth/react";
@@ -10,30 +10,46 @@ import Meta from "./meta";
 import { useSignInModal } from "./sign-in-modal";
 import UserDropdown from "./user-dropdown";
 
-import { ThemeContext } from "state";
+import { AppContext, Themes } from "state";
+import { BurgerMenu } from "./burger";
+import { useRouter } from "next/router";
 
 export default function Layout({
   meta,
   children,
 }: {
   meta?: {
-    title?: string,
-    description?: string,
-    image?: string,
-  },
-  children: ReactNode,
+    title?: string;
+    description?: string;
+    image?: string;
+  };
+  children: ReactNode;
 }) {
   const { SignInModal, setShowSignInModal } = useSignInModal();
-  const { theme } = useContext(ThemeContext);
+  const {
+    theme: { currentTheme, ...themes },
+    appState: { shouldShowBurger },
+  } = useContext(AppContext);
 
+  const { pathname } = useRouter();
+  const currentPage = pathname.split("/")[1] || "landing";
+  const pageTheme = (themes as Themes)[currentPage];
+  /* const pageTheme = useMemo(() => {
+   *   console.log(currentPage);
+   *   return (themes as Themes)[currentPage];
+   * }, [themes, currentTheme]);
+   */
   return (
     <>
       <Meta {...meta} />
       <SignInModal />
       <div
-        className={`fixed h-screen w-full bg-gradient-to-br from-indigo-50 via-white ${theme.bgColor}`}
+        className={`fixed h-screen w-full bg-gradient-to-br from-indigo-50 via-white ${pageTheme.bgColor}`}
       />
-      <Header setShowSignInModal={setShowSignInModal} />
+      <Header
+        setShowSignInModal={setShowSignInModal}
+        shouldShowBurger={shouldShowBurger}
+      />
       <main className="flex w-full flex-col items-center justify-center py-32">
         {children}
       </main>
@@ -44,8 +60,10 @@ export default function Layout({
 
 const Header = ({
   setShowSignInModal,
+  shouldShowBurger,
 }: {
-  setShowSignInModal: (a: boolean) => void,
+  setShowSignInModal: (a: boolean) => void;
+  shouldShowBurger: boolean;
 }) => {
   const { data: session, status } = useSession();
   const scrolled = useScroll(50);
@@ -59,7 +77,7 @@ const Header = ({
       } z-30 transition-all`}
     >
       <div className="mx-5 flex h-16 max-w-screen-xl items-center justify-between xl:mx-auto">
-        <TopLeftLogoAndName />
+        {shouldShowBurger ? <BurgerMenu /> : <TopLeftLogoAndName />}
         <div>
           <AnimatePresence>
             {!session && status !== "loading" ? (

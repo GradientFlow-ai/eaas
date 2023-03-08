@@ -1,9 +1,13 @@
 import React, { useContext } from "react";
 
-import { ThemeContext, themes } from "state";
+import { AppContext, Themes } from "state";
 
 const SideBar = () => {
-  const { theme } = useContext(ThemeContext);
+  const {
+    theme: { currentTheme, ...themes },
+  } = useContext(AppContext);
+
+  const pageTheme = (themes as Themes)[currentTheme];
 
   return (
     <div className={`flex w-64 flex-col px-6  `}>
@@ -26,10 +30,10 @@ const SideBar = () => {
         <span className="font-sans text-lg font-medium">Smartcodehub</span>
       </div>
       <div
-        className={`flex h-full flex-1 flex-col border-t border-b py-8 border-${theme.bgColor}-${theme.text} border-opacity-25`}
+        className={`flex h-full flex-1 flex-col border-t border-b py-8 border-${pageTheme.bgColor}-${pageTheme.text} border-opacity-25`}
       >
         <div
-          className={`flex w-full items-center justify-between space-x-2 p-3 text-${theme.bgColor}-${theme.text} bg-${theme.bgColor}-${theme.profile} rounded-lg bg-opacity-70 `}
+          className={`flex w-full items-center justify-between space-x-2 p-3 text-${pageTheme.bgColor}-${pageTheme.text} bg-${pageTheme.bgColor}-${pageTheme.profile} rounded-lg bg-opacity-70 `}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -46,7 +50,7 @@ const SideBar = () => {
           <div className="flex flex-1 flex-col">
             <h2 className="text-sm">Neeraj Dana</h2>
             <span
-              className={`text-xs font-semibold text-${theme.bgColor}-${theme.text}`}
+              className={`text-xs font-semibold text-${pageTheme.bgColor}-${pageTheme.text}`}
             >
               See Details
             </span>
@@ -67,7 +71,7 @@ const SideBar = () => {
         </div>
         <div className="flex flex-1 flex-col py-4">
           <div
-            className={`flex flex-col space-y-2 text-${theme.bgColor}-${theme.text}`}
+            className={`flex flex-col space-y-2 text-${pageTheme.bgColor}-${pageTheme.text}`}
           >
             {items.map((a) => {
               return (
@@ -81,14 +85,14 @@ const SideBar = () => {
         </div>
 
         <div
-          className={`flex w-full flex-col space-y-2 p-6 text-${theme.bgColor}-${theme.text} bg-${theme.bgColor}-${theme.notify} rounded-lg bg-opacity-20`}
+          className={`flex w-full flex-col space-y-2 p-6 text-${pageTheme.bgColor}-${pageTheme.text} bg-${pageTheme.bgColor}-${pageTheme.notify} rounded-lg bg-opacity-20`}
         >
           <h3 className="text-sm font-semibold">Used Space</h3>
           <p className="text-sm">Admin is updated and i am not</p>
         </div>
       </div>
       <div
-        className={`flex items-center justify-start py-6 text-${theme.bgColor}-${theme.text} border-t border-b border-gray-100 border-opacity-25`}
+        className={`flex items-center justify-start py-6 text-${pageTheme.bgColor}-${pageTheme.text} border-t border-b border-gray-100 border-opacity-25`}
       >
         <img src={userProfileImage} className="mr-4 h-12 w-12 rounded-full" />
         <span className="flex-1 text-sm font-semibold">Neeraj Dana</span>

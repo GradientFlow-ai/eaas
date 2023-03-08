@@ -1,6 +1,4 @@
-import { createContext } from "react";
-
-export const themes = {
+export const themes: Themes = {
   light: {
     bgColor: "indigo",
     name: "light",
@@ -43,11 +41,17 @@ export const themes = {
   },
 };
 
-export type Theme = typeof themes.light;
-
-export type ContextTheme = {
-  theme: Theme;
-  setTheme: Function;
+export type Theme = {
+  bgColor: string,
+  name: string,
+  main: number,
+  profile: number,
+  notify: number,
+  text: number,
 };
 
-export const ThemeContext = createContext({} as ContextTheme);
+export type ThemeOption = keyof Themes;
+
+export interface Themes {
+  [pageName: string]: Theme;
+}

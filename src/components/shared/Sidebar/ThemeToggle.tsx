@@ -1,13 +1,19 @@
 import { useContext, useState, useEffect } from "react";
-import { ThemeContext, themes } from "state";
+import { AppContext, Themes } from "state";
 
 const ThemeToggle = () => {
-  const { setTheme, theme } = useContext(ThemeContext);
+  const {
+    theme: { currentTheme, ...themes },
+    setTheme,
+  } = useContext(AppContext);
+
+  const pageTheme = (themes as Themes)[currentTheme];
+
   const [enabled, setEnabled] = useState(true);
-  useEffect(() => {
-    setTheme(enabled ? themes.dark : themes.light);
-    return () => {};
-  }, [enabled]);
+  // useEffect(() => {
+  //   setTheme(enabled ? themes.dark : themes.light);
+  //   return () => {};
+  // }, [enabled]);
   return (
     <div>
       <div className="mx-4 space-x-4 py-16 ">
@@ -21,10 +27,10 @@ const ThemeToggle = () => {
       </div>
       <div className="py-16">
         <select
-          className={`rounded px-4 py-2 text-white text-${theme.bgColor}-700`}
-          value={theme.bgColor}
+          className={`rounded px-4 py-2 text-white text-${pageTheme.bgColor}-700`}
+          value={pageTheme.bgColor}
           onChange={(e) => {
-            setTheme({ bgColor: e.target.value });
+            setTheme(e.target.value);
           }}
         >
           <option className="text-indigo-700" value={"indigo"}>
