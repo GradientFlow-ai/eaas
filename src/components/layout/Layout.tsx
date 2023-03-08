@@ -14,18 +14,18 @@ export default function Layout({
   children,
 }: {
   meta?: {
-    title?: string;
-    description?: string;
-    image?: string;
-  };
-  children: ReactNode;
+    title?: string,
+    description?: string,
+    image?: string,
+  },
+  children: ReactNode,
 }) {
   const { SignInModal, setShowSignInModal } = useSignInModal();
   return (
     <>
       <Meta {...meta} />
       <SignInModal />
-      <div className="fixed h-screen w-full bg-gradient-to-br from-indigo-50 via-white to-cyan-100" />
+      <div className="fixed h-screen w-full bg-gradient-to-br from-indigo-50 via-white to-rose-200" />
       <Header setShowSignInModal={setShowSignInModal} />
       <main className="flex w-full flex-col items-center justify-center py-32">
         {children}
@@ -38,7 +38,7 @@ export default function Layout({
 const Header = ({
   setShowSignInModal,
 }: {
-  setShowSignInModal: (a: boolean) => void;
+  setShowSignInModal: (a: boolean) => void,
 }) => {
   const { data: session, status } = useSession();
   const scrolled = useScroll(50);

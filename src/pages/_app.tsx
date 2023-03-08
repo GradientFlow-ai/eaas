@@ -1,3 +1,5 @@
+import { useState, useContext } from "react";
+
 import "@/styles/globals.css";
 
 import type { AppProps } from "next/app";
@@ -8,9 +10,8 @@ import { SessionProvider } from "next-auth/react";
 import cx from "classnames";
 import localFont from "@next/font/local";
 import { Inter } from "@next/font/google";
-import { themes, ThemeContext, ThemeToggle } from "@components/shared/Sidebar";
 
-import { useState, useEffect, useContext } from "react";
+import { ThemeContext, themes } from "state";
 
 const sfPro = localFont({
   src: "../styles/SF-Pro-Display-Medium.otf",

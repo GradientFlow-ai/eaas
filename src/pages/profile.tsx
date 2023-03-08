@@ -9,7 +9,7 @@ import {
 import { Formik, Form, Field } from "formik";
 import Head from "next/head";
 import type { ReactElement } from "react";
-import { Github } from "@components/shared/icons";
+import { Github } from "components/shared/icons";
 import { useSession } from "next-auth/react";
 
 import {
@@ -17,17 +17,17 @@ import {
   BaseButtons,
   BaseDivider,
   SectionTitleLineWithButton,
-} from "@components/shared/BaseButton";
+} from "components/shared/BaseButton";
 import {
   CardBox,
   CardBoxComponentFooter,
   CardBoxComponentBody,
-} from "@components/shared/CardBox";
+} from "components/shared/CardBox";
 
-import { FormField, FormFilePicker } from "@components/shared/FormField";
-import { UserCard } from "@components/shared/User";
+import { FormField, FormFilePicker } from "components/shared/FormField";
+import { UserCard } from "components/shared/User";
 
-import { SectionMain } from "@components/layout";
+import { SectionMain } from "components/layout";
 
 type UserForm = {
   name: string;

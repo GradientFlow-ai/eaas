@@ -1,9 +1,10 @@
 import { useState, useEffect, useContext } from "react";
 import { Transition } from "@headlessui/react";
 
-import { Layout } from "@components/layout";
+import { Layout } from "components/layout";
+import { ThemeContext } from "state";
 
-import { ThemeContext, Sidebar, ThemeToggle } from "@components/shared/Sidebar";
+import { Sidebar, ThemeToggle } from "components/shared/Sidebar";
 
 function Dashboard() {
   const value = useContext(ThemeContext);
@@ -13,7 +14,7 @@ function Dashboard() {
     <Layout>
       <div
         className={`relative flex py-${
-          value.showSidebar ? "4" : "0"
+          showSidebar ? "4" : "0"
         } h-screen w-screen justify-start space-x-4 `}
       >
         <Transition
@@ -45,7 +46,7 @@ function Dashboard() {
 
 export default Dashboard;
 
-function Navbar({ setShowSidebar }) {
+function Navbar({ setShowSidebar }: { setShowSidebar: Function }) {
   const value = useContext(ThemeContext);
 
   return (

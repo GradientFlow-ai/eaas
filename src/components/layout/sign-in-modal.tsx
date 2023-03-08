@@ -1,4 +1,4 @@
-import Modal from "@components/shared/modal";
+import Modal from "components/shared/modal";
 import { signIn, getProviders } from "next-auth/react";
 import {
   useState,
@@ -8,7 +8,7 @@ import {
   useEffect,
   useMemo,
 } from "react";
-import { LoadingDots, Google, Github } from "@components/shared/icons";
+import { LoadingDots, Google, Github } from "components/shared/icons";
 import { Mail } from "lucide-react";
 import Image from "next/image";
 

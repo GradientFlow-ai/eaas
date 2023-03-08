@@ -1,4 +1,4 @@
-import { AdminLayout } from "@components/layout";
+import { AdminLayout } from "components/layout";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowDown,

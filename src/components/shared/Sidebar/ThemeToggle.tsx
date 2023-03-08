@@ -1,5 +1,5 @@
-import React, { useContext, useState, useEffect } from "react";
-import { ThemeContext, themes } from "./ThemeContext";
+import { useContext, useState, useEffect } from "react";
+import { ThemeContext, themes } from "state";
 
 const ThemeToggle = () => {
   const { setTheme, setBgColor, theme, bgColor } = useContext(ThemeContext);
@@ -39,7 +39,7 @@ const ThemeToggle = () => {
           <option className="text-teal-700" value={"teal"}>
             Teal
           </option>
-          <option className="text-lightBlue-700" value={"lightBlue"}>
+          <option className="text-sky-700" value={"lightBlue"}>
             Light Blue
           </option>
           <option className="text-violet-700" value={"violet"}>
@@ -51,7 +51,7 @@ const ThemeToggle = () => {
           <option className="text-fuchsia-700" value={"fuchsia"}>
             Fuchsia
           </option>
-          <option className="text-trueGray-700" value={"trueGray"}>
+          <option className="text-neutral-700" value={"neutral"}>
             trueGray
           </option>
           <option className="text-rose-700" value={"rose"}>
