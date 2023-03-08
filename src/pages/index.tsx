@@ -1,11 +1,11 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import Balancer from "react-wrap-balancer";
 import { motion } from "framer-motion";
 
 import Card from "components/home/card";
 import { Layout } from "components/layout";
-import { ThemeContext } from "state";
+import { ThemeContext, themes } from "state";
 
 import {
   DEPLOY_URL,
@@ -18,8 +18,10 @@ import ComponentGrid from "components/home/component-grid";
 import Scatterplot from "components/scatterplot";
 
 export default function Home() {
-  const { theme } = useContext(ThemeContext);
+  const { theme, setTheme } = useContext(ThemeContext);
   const [visualizationData, setVisualizationData] = useState(DUMMY_DATA);
+
+  useEffect(() => setTheme(themes.landing), [setTheme]);
 
   const fetchVisualizationData = useEffect(() => {
     fetch("/api/visualizations/tsne")

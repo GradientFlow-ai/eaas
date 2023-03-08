@@ -18,7 +18,7 @@ export const themes = {
     text: 100,
   },
   landing: {
-    bgColor: "indigo",
+    bgColor: "to-cyan-100",
     name: "dark",
     main: 700,
     profile: 400,
@@ -26,7 +26,7 @@ export const themes = {
     text: 100,
   },
   dashboard: {
-    bgColor: "indigo",
+    bgColor: "to-rose-200",
     name: "dark",
     main: 700,
     profile: 400,

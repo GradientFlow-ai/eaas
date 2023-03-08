@@ -1,3 +1,4 @@
+import { useContext } from "react";
 import { FADE_IN_ANIMATION_SETTINGS } from "lib/constants";
 import { AnimatePresence, motion } from "framer-motion";
 import { useSession } from "next-auth/react";
@@ -8,6 +9,8 @@ import useScroll from "lib/hooks/use-scroll";
 import Meta from "./meta";
 import { useSignInModal } from "./sign-in-modal";
 import UserDropdown from "./user-dropdown";
+
+import { ThemeContext } from "state";
 
 export default function Layout({
   meta,
@@ -21,11 +24,15 @@ export default function Layout({
   children: ReactNode,
 }) {
   const { SignInModal, setShowSignInModal } = useSignInModal();
+  const { theme } = useContext(ThemeContext);
+
   return (
     <>
       <Meta {...meta} />
       <SignInModal />
-      <div className="fixed h-screen w-full bg-gradient-to-br from-indigo-50 via-white to-rose-200" />
+      <div
+        className={`fixed h-screen w-full bg-gradient-to-br from-indigo-50 via-white ${theme.bgColor}`}
+      />
       <Header setShowSignInModal={setShowSignInModal} />
       <main className="flex w-full flex-col items-center justify-center py-32">
         {children}
