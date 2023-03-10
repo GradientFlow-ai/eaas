@@ -1,26 +1,13 @@
-import { useState, useEffect, useContext, useMemo } from "react";
 import { Transition } from "@headlessui/react";
 
-import { Layout } from "components/layout";
-import { AppContext, Themes } from "state";
+import { usePageState, usePageTheme } from "state";
 
+import { Layout } from "components/layout";
 import { Sidebar, ThemeToggle } from "components/shared/Sidebar";
 
 function Dashboard() {
-  const {
-    theme: { currentTheme, ...themes },
-    setTheme,
-    appState,
-    setAppState,
-  } = useContext(AppContext);
-
-  useMemo(() => {
-    setTheme("dashboard");
-  }, [setTheme]);
-
-  const { isSidebarOpen } = appState;
-
-  const pageTheme = (themes as Themes)[currentTheme];
+  const pageTheme = usePageTheme();
+  const { isSidebarOpen, currentTheme } = usePageState();
 
   return (
     <Layout>

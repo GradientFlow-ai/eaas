@@ -27,12 +27,13 @@ export default function MyApp({
   Component,
   pageProps: { session, ...pageProps },
 }: AppProps<{ session: Session }>) {
-  const [currentTheme, setCurrentTheme] = useState("landing");
-  const [appState, setAppState] = useState(baseAppState);
+  const [theme, setTheme] = useState(ContextApp.theme);
+  const [appState, setAppState] = useState(ContextApp.appState);
 
   const appContext = {
-    ...ContextApp,
-    setTheme: setCurrentTheme,
+    theme,
+    setTheme,
+    appState,
     setAppState,
   };
 

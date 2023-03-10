@@ -1,21 +1,15 @@
-import { createContext } from "react";
-
-import { themes, Theme, ThemeOption, Themes } from "./ThemeContext";
+import { themes, Theme, Themes } from "./ThemeContext";
+import { ContextApp, AppContext } from "./appContext";
 import { baseAppState } from "./appState";
 
-export { baseAppState, AppContext, themes, ContextApp };
-export type { Theme, ThemeOption, Themes };
+import { usePageState, usePageTheme } from "./hooks";
 
-const ContextApp = {
-  appState: {
-    ...baseAppState,
-  },
-  theme: {
-    currentTheme: "landing",
-    ...themes,
-  },
-  setTheme: (t: string) => {},
-  setAppState: (a: typeof baseAppState) => {},
+export {
+  baseAppState,
+  AppContext,
+  themes,
+  ContextApp,
+  usePageState,
+  usePageTheme,
 };
-
-const AppContext = createContext(ContextApp);
+export type { Theme, Themes };

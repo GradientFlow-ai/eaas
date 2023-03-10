@@ -1,4 +1,7 @@
-import { useContext, useMemo } from "react";
+import tw from "tailwind-styled-components";
+
+import { AppContext, Themes, usePageState, usePageTheme } from "state";
+
 import { FADE_IN_ANIMATION_SETTINGS } from "lib/constants";
 import { AnimatePresence, motion } from "framer-motion";
 import { useSession } from "next-auth/react";
@@ -10,9 +13,30 @@ import Meta from "./meta";
 import { useSignInModal } from "./sign-in-modal";
 import UserDropdown from "./user-dropdown";
 
-import { AppContext, Themes } from "state";
 import { BurgerMenu } from "./burger";
-import { useRouter } from "next/router";
+
+interface BackgroundProps {
+  $bgColor: string;
+}
+
+const Background = tw.div<BackgroundProps>`
+  fixed
+  h-screen
+  w-full
+  bg-gradient-to-br
+  from-indigo-50
+  via-white
+  ${(p) => p.$bgColor}
+`;
+
+const Main = tw.main`
+  flex
+  w-full
+  flex-col
+  items-center
+  justify-center
+  py-32
+`;
 
 export default function Layout({
   meta,
@@ -26,33 +50,20 @@ export default function Layout({
   children: ReactNode;
 }) {
   const { SignInModal, setShowSignInModal } = useSignInModal();
-  const {
-    theme: { currentTheme, ...themes },
-    appState: { shouldShowBurger },
-  } = useContext(AppContext);
+  const { shouldShowBurger, currentTheme } = usePageState();
 
-  const { pathname } = useRouter();
-  const currentPage = pathname.split("/")[1] || "landing";
-  const pageTheme = (themes as Themes)[currentPage];
-  /* const pageTheme = useMemo(() => {
-   *   console.log(currentPage);
-   *   return (themes as Themes)[currentPage];
-   * }, [themes, currentTheme]);
-   */
+  const pageTheme = usePageTheme();
+
   return (
     <>
       <Meta {...meta} />
       <SignInModal />
-      <div
-        className={`fixed h-screen w-full bg-gradient-to-br from-indigo-50 via-white ${pageTheme.bgColor}`}
-      />
+      <Background $bgColor={pageTheme.bgColor} />
       <Header
         setShowSignInModal={setShowSignInModal}
         shouldShowBurger={shouldShowBurger}
       />
-      <main className="flex w-full flex-col items-center justify-center py-32">
-        {children}
-      </main>
+      <Main>{children}</Main>
       <Footer />
     </>
   );
