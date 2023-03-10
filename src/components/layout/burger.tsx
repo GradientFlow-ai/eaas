@@ -1,13 +1,7 @@
-import { useContext } from "react";
-import { AppContext, Themes, ThemeOption } from "state";
+import { usePageState, usePageTheme } from "state";
 
 function Navbar() {
-  const {
-    theme: { currentTheme, ...themes },
-    appState: { shouldShowBurger },
-  } = useContext(AppContext);
-
-  const pageTheme = (themes as Themes)[currentTheme]
+  const pageTheme = usePageTheme();
 
   return (
     <div
@@ -25,21 +19,17 @@ function Navbar() {
 }
 
 export const BurgerMenu = () => {
-  const {
-    appState: { isSidebarOpen, ...appState },
-    setAppState,
-  } = useContext(AppContext);
-
-  const setShowSidebar = () => {
-    setAppState({
-      ...appState,
-      isSidebarOpen: !isSidebarOpen,
-    });
-  };
-
+  const { isSidebarOpen } = usePageState();
+  /* const setShowSidebar = () => {
+   *   setAppState({
+   *     ...appState,
+   *     isSidebarOpen: !isSidebarOpen,
+   *   });
+   * };
+   */
   return (
     <svg
-      onClick={() => setShowSidebar()}
+      onClick={() => null}
       xmlns="http://www.w3.org/2000/svg"
       className="h-5 w-5"
       viewBox="0 0 20 20"

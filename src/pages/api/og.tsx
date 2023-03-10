@@ -31,7 +31,7 @@ export default async function handler(req: NextRequest) {
             "linear-gradient(to bottom right, #E0E7FF 25%, #ffffff 50%, #CFFAFE 75%)",
         }}
       >
-        <img src="/logo.png" tw="w-20 h-20 mb-4 opacity-95" />
+        <img alt="logo" src="/logo.png" tw="w-20 h-20 mb-4 opacity-95" />
         <h1
           style={{
             fontSize: "100px",

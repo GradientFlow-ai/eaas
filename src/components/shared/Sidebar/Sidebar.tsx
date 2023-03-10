@@ -1,13 +1,8 @@
-import React, { useContext } from "react";
-
-import { AppContext, Themes } from "state";
+import Image from "next/image";
+import { usePageState, usePageTheme } from "state";
 
 const SideBar = () => {
-  const {
-    theme: { currentTheme, ...themes },
-  } = useContext(AppContext);
-
-  const pageTheme = (themes as Themes)[currentTheme];
+  const pageTheme = usePageTheme();
 
   return (
     <div className={`flex w-64 flex-col px-6  `}>
@@ -75,7 +70,10 @@ const SideBar = () => {
           >
             {items.map((a) => {
               return (
-                <div className="flex w-full items-center space-x-4 p-2">
+                <div
+                  key={a.name}
+                  className="flex w-full items-center space-x-4 p-2"
+                >
                   {a.Icon()}
                   <span className="text-sm font-semibold">{a.name}</span>
                 </div>
@@ -94,7 +92,11 @@ const SideBar = () => {
       <div
         className={`flex items-center justify-start py-6 text-${pageTheme.bgColor}-${pageTheme.text} border-t border-b border-gray-100 border-opacity-25`}
       >
-        <img src={userProfileImage} className="mr-4 h-12 w-12 rounded-full" />
+        <Image
+          alt="user profile"
+          src={userProfileImage}
+          className="mr-4 h-12 w-12 rounded-full"
+        />
         <span className="flex-1 text-sm font-semibold">Neeraj Dana</span>
         <svg
           xmlns="http://www.w3.org/2000/svg"
