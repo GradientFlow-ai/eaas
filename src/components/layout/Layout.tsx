@@ -26,7 +26,7 @@ const Background = tw.div<BackgroundProps>`
   bg-gradient-to-br
   from-indigo-50
   via-white
-  ${(p) => p.$bgColor}
+  ${(p) => (p.$bgColor == "to-rose-200" ? "to-rose-200" : "to-cyan-100")}
 `;
 
 const Main = tw.main`
