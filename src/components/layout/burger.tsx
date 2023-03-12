@@ -1,4 +1,4 @@
-import { usePageState, usePageTheme } from "state";
+import { usePageState, usePageTheme, useSetAppState } from "state";
 
 function Navbar() {
   const pageTheme = usePageTheme();
@@ -20,16 +20,16 @@ function Navbar() {
 
 export const BurgerMenu = () => {
   const { isSidebarOpen } = usePageState();
-  /* const setShowSidebar = () => {
-   *   setAppState({
-   *     ...appState,
-   *     isSidebarOpen: !isSidebarOpen,
-   *   });
-   * };
-   */
+  const setAppState = useSetAppState();
+
+  const setShowSidebar = () => {
+    console.log("setShowSidebar");
+    setAppState({ isSidebarOpen: !isSidebarOpen });
+  };
+
   return (
     <svg
-      onClick={() => null}
+      onClick={() => setShowSidebar()}
       xmlns="http://www.w3.org/2000/svg"
       className="h-5 w-5"
       viewBox="0 0 20 20"

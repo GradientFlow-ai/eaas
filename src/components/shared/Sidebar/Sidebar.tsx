@@ -89,31 +89,13 @@ const SideBar = () => {
           <p className="text-sm">Admin is updated and i am not</p>
         </div>
       </div>
-      <div
-        className={`flex items-center justify-start py-6 text-${pageTheme.bgColor}-${pageTheme.text} border-t border-b border-gray-100 border-opacity-25`}
-      >
-        <Image
-          alt="user profile"
-          src={userProfileImage}
-          className="mr-4 h-12 w-12 rounded-full"
-        />
-        <span className="flex-1 text-sm font-semibold">Neeraj Dana</span>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-5 w-5"
-          viewBox="0 0 20 20"
-          fill="currentColor"
-        >
-          <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z" />
-        </svg>
-      </div>
     </div>
   );
 };
 
 export default SideBar;
 
-const userProfileImage = `https://scontent.fdel42-1.fna.fbcdn.net/v/t1.6435-9/57624905_2442339965785962_6352756075350982656_n.jpg?_nc_cat=101&ccb=1-3&_nc_sid=174925&_nc_ohc=vNjPtukrl6MAX_1iIFs&_nc_ht=scontent.fdel42-1.fna&oh=9ed8dc4a27d05303d511afcd58ab9cbc&oe=60A4B81A`;
+const userProfileImage = "";
 const items = [
   {
     name: "Dashboard",

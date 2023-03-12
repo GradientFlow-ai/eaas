@@ -12,9 +12,7 @@ function Dashboard() {
   return (
     <Layout>
       <div
-        className={`relative flex py-${
-          isSidebarOpen ? "4" : "0"
-        } h-screen w-screen justify-start space-x-4 `}
+        className={`relative flex h-screen w-screen justify-start space-x-4 `}
       >
         <Transition
           show={isSidebarOpen}
