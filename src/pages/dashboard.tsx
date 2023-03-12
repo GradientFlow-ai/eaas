@@ -1,30 +1,13 @@
-import { Transition } from "@headlessui/react";
-
-import { usePageState, usePageTheme } from "state";
-
 import { Layout } from "components/layout";
 import { Sidebar } from "components/shared/Sidebar";
 
 function Dashboard() {
-  const pageTheme = usePageTheme();
-  const { isSidebarOpen, currentTheme } = usePageState();
-
   return (
     <Layout>
       <div
         className={`relative flex h-screen w-screen justify-start space-x-4 `}
       >
-        <Transition
-          show={isSidebarOpen}
-          enter="transition-opacity ease-linear duration-300"
-          enterFrom="opacity-0"
-          enterTo="opacity-100"
-          leave="transition-opacity ease-linear duration-300"
-          leaveFrom="opacity-100"
-          leaveTo="opacity-0"
-        >
-          <Sidebar />
-        </Transition>
+        <Sidebar />
       </div>
     </Layout>
   );
@@ -32,7 +15,7 @@ function Dashboard() {
 
 export default Dashboard;
 
-const WrapperWeMayNeed = ({ pageTheme }) => (
+const WrapperWeMayNeed = ({ pageTheme, isSidebarOpen }: any) => (
   <div
     className={`flex w-full flex-col p-${
       isSidebarOpen ? "4" : "0"
