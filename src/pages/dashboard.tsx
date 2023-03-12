@@ -3,7 +3,7 @@ import { Transition } from "@headlessui/react";
 import { usePageState, usePageTheme } from "state";
 
 import { Layout } from "components/layout";
-import { Sidebar, ThemeToggle } from "components/shared/Sidebar";
+import { Sidebar } from "components/shared/Sidebar";
 
 function Dashboard() {
   const pageTheme = usePageTheme();
@@ -25,20 +25,20 @@ function Dashboard() {
         >
           <Sidebar />
         </Transition>
-
-        <div
-          className={`flex w-full flex-col p-${
-            isSidebarOpen ? "4" : "0"
-          } flex-1 rounded-l-lg bg-opacity-30 bg-clip-padding
-         shadow bg-${pageTheme.bgColor}-${pageTheme.profile}`}
-        >
-          <div className="flex justify-end">
-            <ThemeToggle />
-          </div>
-        </div>
       </div>
     </Layout>
   );
 }
 
 export default Dashboard;
+
+const WrapperWeMayNeed = ({ pageTheme }) => (
+  <div
+    className={`flex w-full flex-col p-${
+      isSidebarOpen ? "4" : "0"
+    } flex-1 rounded-l-lg bg-opacity-30 bg-clip-padding
+         shadow bg-${pageTheme.bgColor}-${pageTheme.profile}`}
+  >
+    <div className="flex justify-end">content here</div>
+  </div>
+);

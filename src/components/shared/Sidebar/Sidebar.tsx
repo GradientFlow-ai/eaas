@@ -1,69 +1,35 @@
 import Image from "next/image";
 import { usePageState, usePageTheme } from "state";
 
+const SidebarHeader = () => (
+  <div className={`flex h-24 w-full items-center justify-start space-x-8 `}>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      className="h-6 w-6"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={2}
+        d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+      />
+    </svg>
+    <span className="font-sans text-lg font-medium">Your Embeddings</span>
+  </div>
+);
+
 const SideBar = () => {
   const pageTheme = usePageTheme();
 
   return (
     <div className={`flex w-64 flex-col px-6  `}>
-      {/* {Header Section} */}
-      <div className={`flex h-24 w-full items-center justify-start space-x-8 `}>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-6 w-6"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
-          />
-        </svg>
-        <span className="font-sans text-lg font-medium">Smartcodehub</span>
-      </div>
+      <SidebarHeader />
       <div
         className={`flex h-full flex-1 flex-col border-t border-b py-8 border-${pageTheme.bgColor}-${pageTheme.text} border-opacity-25`}
       >
-        <div
-          className={`flex w-full items-center justify-between space-x-2 p-3 text-${pageTheme.bgColor}-${pageTheme.text} bg-${pageTheme.bgColor}-${pageTheme.profile} rounded-lg bg-opacity-70 `}
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-5 w-5"
-            viewBox="0 0 20 20"
-            fill="currentColor"
-          >
-            <path
-              fillRule="evenodd"
-              d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
-              clipRule="evenodd"
-            />
-          </svg>
-          <div className="flex flex-1 flex-col">
-            <h2 className="text-sm">Neeraj Dana</h2>
-            <span
-              className={`text-xs font-semibold text-${pageTheme.bgColor}-${pageTheme.text}`}
-            >
-              See Details
-            </span>
-          </div>
-
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-5 w-5"
-            viewBox="0 0 20 20"
-            fill="currentColor"
-          >
-            <path
-              fillRule="evenodd"
-              d="M10 3a1 1 0 01.707.293l3 3a1 1 0 01-1.414 1.414L10 5.414 7.707 7.707a1 1 0 01-1.414-1.414l3-3A1 1 0 0110 3zm-3.707 9.293a1 1 0 011.414 0L10 14.586l2.293-2.293a1 1 0 011.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"
-              clipRule="evenodd"
-            />
-          </svg>
-        </div>
         <div className="flex flex-1 flex-col py-4">
           <div
             className={`flex flex-col space-y-2 text-${pageTheme.bgColor}-${pageTheme.text}`}
@@ -80,13 +46,6 @@ const SideBar = () => {
               );
             })}
           </div>
-        </div>
-
-        <div
-          className={`flex w-full flex-col space-y-2 p-6 text-${pageTheme.bgColor}-${pageTheme.text} bg-${pageTheme.bgColor}-${pageTheme.notify} rounded-lg bg-opacity-20`}
-        >
-          <h3 className="text-sm font-semibold">Used Space</h3>
-          <p className="text-sm">Admin is updated and i am not</p>
         </div>
       </div>
     </div>
