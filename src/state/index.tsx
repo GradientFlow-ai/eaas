@@ -2,7 +2,7 @@ import { themes, Theme, Themes } from "./ThemeContext";
 import { ContextApp, AppContext } from "./appContext";
 import { baseAppState } from "./appState";
 
-import { usePageState, usePageTheme } from "./hooks";
+import { usePageState, usePageTheme, useSetAppState } from "./hooks";
 
 export {
   baseAppState,
@@ -11,5 +11,6 @@ export {
   ContextApp,
   usePageState,
   usePageTheme,
+  useSetAppState,
 };
 export type { Theme, Themes };

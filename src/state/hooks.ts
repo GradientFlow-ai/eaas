@@ -23,4 +23,18 @@ const usePageState = () => {
     return {...appState.generalState, ...appState[currentPage] }
 }
 
-export { usePageState, usePageTheme }
+const useSetAppState = () => {
+  const { appState, setAppState } = useContext(AppContext);
+
+  const updateAppState = (state: any, page?: string) => {
+    const pageKey = page || "generalState";
+    const subState = appState[pageKey]
+    const newState = { ...subState, ...state };
+    setAppState({ ...appState, [pageKey]: newState });
+  };
+
+  return updateAppState;
+
+};
+
+export { usePageState, usePageTheme, useSetAppState };
