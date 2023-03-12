@@ -1,7 +1,7 @@
 const userProfileImage = "";
 const items = [
   {
-    name: "Dashboard",
+    name: "Your Visualizations",
     Icon: () => (
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -14,7 +14,7 @@ const items = [
     ),
   },
   {
-    name: "Overview",
+    name: "Your Database Connections",
     Icon: () => (
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -26,6 +26,9 @@ const items = [
       </svg>
     ),
   },
+];
+
+const unusedItems = [
   {
     name: "Chat",
     Icon: () => (

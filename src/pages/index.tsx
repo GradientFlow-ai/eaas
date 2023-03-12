@@ -59,19 +59,20 @@ export default function Home() {
 
           <Scatterplot data={visualizationData} width={600} height={600} />
         </motion.div>
-
-        <motion.div
-          className="mx-auto mt-6 flex items-center justify-center space-x-5"
-          variants={FADE_DOWN_ANIMATION_VARIANTS}
-        >
-          <TestViz />
-          <TestPython />
-        </motion.div>
       </motion.div>
+      <Features />
     </Layout>
   );
 }
 
+const CallToAction = () => (
+  <motion.div
+    className="mx-auto mt-6 flex items-center justify-center space-x-5"
+    variants={FADE_DOWN_ANIMATION_VARIANTS}
+  >
+    <TestViz />
+  </motion.div>
+);
 // Features can go before closing Layout tag
 // TODO add features for us
 /* here we are animating with Tailwind instead of Framer Motion because Framer Motion messes up the z-index for child components */
@@ -100,67 +101,6 @@ const vizAPI = (query: string) =>
   })
     .then((res) => res.json())
     .then((json) => console.log(json));
-
-const embedAPI = (query: string) =>
-  fetch("/api/embeddings/generateEmbeddings", {
-    method: "POST",
-    headers: {
-      "Content-type": "application/json",
-    },
-    body: JSON.stringify({ query }),
-  })
-    .then((res) => res.json())
-    .then((json) => console.log(json));
-
-const searchAPI = (query: string) =>
-  fetch("/api/embeddings/searchEmbeddings", {
-    method: "POST",
-    headers: {
-      "Content-type": "application/json",
-    },
-    body: JSON.stringify({ query }),
-  })
-    .then((res) => res.json())
-    .then((json) => console.log(json));
-
-const pythonAPI = (query: string) =>
-  fetch("/api/python/handlerTest", {
-    method: "POST",
-    headers: {
-      "Content-type": "application/json",
-    },
-    body: JSON.stringify({ query }),
-  })
-    .then((res) => res.json())
-    .then((json) => console.log(json));
-
-const TestEmbed = () => (
-  <button
-    className="flex max-w-fit items-center justify-center space-x-2 rounded-full border border-gray-300 bg-white px-5 py-2 text-sm text-gray-600 shadow-md transition-colors hover:border-gray-800"
-    onClick={() => embedAPI(`{ hello }`)}
-  >
-    <Image alt="OpenAI logo" src="/openai.svg" width={25} height={25} />
-    <p>Create an embedding with OpenAI</p>
-  </button>
-);
-
-const TestSearch = () => (
-  <button
-    className="flex max-w-fit items-center justify-center space-x-2 rounded-full border border-gray-300 bg-white px-5 py-2 text-sm text-gray-600 shadow-md transition-colors hover:border-gray-800"
-    onClick={() => searchAPI(`{ hello }`)}
-  >
-    <p>Get the most similar documents</p>
-  </button>
-);
-
-const TestPython = () => (
-  <button
-    className="flex max-w-fit items-center justify-center space-x-2 rounded-full border border-gray-300 bg-white px-5 py-2 text-sm text-gray-600 shadow-md transition-colors hover:border-gray-800"
-    onClick={() => pythonAPI(`{ hello }`)}
-  >
-    <p>Try Python</p>
-  </button>
-);
 
 const TestViz = () => (
   <button
@@ -196,31 +136,6 @@ const TwitterAnchor = () => (
       Introducing Embeddings As a Service
     </p>
   </motion.a>
-);
-
-const VercelAnchor = () => (
-  <a
-    className="group flex max-w-fit items-center justify-center space-x-2 rounded-full border border-black bg-black px-5 py-2 text-sm text-white transition-colors hover:bg-white hover:text-black"
-    href={DEPLOY_URL}
-    target="_blank"
-    rel="noopener noreferrer"
-  >
-    <svg
-      className="h-4 w-4 group-hover:text-black"
-      viewBox="0 0 24 24"
-      fill="currentColor"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M12 4L20 20H4L12 4Z"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-    <p>Deploy to Vercel</p>
-  </a>
 );
 
 const Subtitle = () => (
@@ -283,14 +198,11 @@ const features = [
     ),
   },
   {
-    title: "Hooks, utilities, and more",
+    title: "Coming soon!",
     description:
       "Precedent offers a collection of hooks, utilities, and `@vercel/og`",
     demo: (
       <div className="grid grid-flow-col grid-rows-3 gap-10 p-10">
-        <span className="font-mono font-semibold">useIntersectionObserver</span>
-        <span className="font-mono font-semibold">useLocalStorage</span>
-        <span className="font-mono font-semibold">useScroll</span>
         <span className="font-mono font-semibold">nFormatter</span>
         <span className="font-mono font-semibold">capitalize</span>
         <span className="font-mono font-semibold">truncate</span>
