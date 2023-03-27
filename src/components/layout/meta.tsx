@@ -3,8 +3,8 @@ import Head from "next/head";
 const DOMAIN = "https://localhost:3000";
 
 export default function Meta({
-  title = "Embeddings As A Service",
-  description = "EAAS lets you create embeddings, fine-tune off-the-shelf models, search for similar embeddings, and more.",
+  title = "GradientFlow",
+  description = "The GitHub of Embeddings",
   image = `${DOMAIN}/api/og`,
 }: {
   title?: string;
@@ -20,7 +20,7 @@ export default function Meta({
       <meta charSet="utf-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <meta itemProp="image" content={image} />
-      <meta property="og:logo" content={`${DOMAIN}/logo.png`}></meta>
+      <meta property="og:logo" content={`${DOMAIN}/logo.jpg`}></meta>
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />
       <meta property="og:image" content={image} />
