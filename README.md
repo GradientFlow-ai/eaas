@@ -1,11 +1,11 @@
-<h1 align="center">Embeddings As a Service</h1>
+<h1 align="center">Gradients, Flowing To a Neighborhood Near You</h1>
 
 <p align="center">
-We manage your embeddings so you don't have to
+Liberty and Embeddings for All
 </p>
 
 <p align="center">
-  <a href="https://twitter.com/steventey">
+  <a href="https://twitter.com/coyotespike">
     <img src="https://img.shields.io/twitter/follow/coyotespike?style=flat&label=coyotespike&logo=twitter&color=0bf&logoColor=fff" alt="coyotespike Twitter follower count" />
   </a>
   <a href="https://github.com/coyotespike">
@@ -21,7 +21,7 @@ We manage your embeddings so you don't have to
 
 ## Introduction
 
-Precedent is an opinionated collection of components, hooks, and utilities for your Next.js project.
+GradientFlow is a community-driven collection of open-source embeddings, ready for you to train your AI, perform multimodal semantic search, and fine-tune.
 
 ## Tech Stack + Features
 
@@ -56,17 +56,15 @@ The below may change soon as we rebuild on Akash Network.
 
 ### Miscellaneous
 
-- [Vercel Analytics](https://vercel.com/analytics) – Track unique visitors, pageviews, and more in a privacy-friendly way
-
 - Currently using [t-SNE](https://github.com/scienceai/tsne-js/), may switch to other options. [linear time complexity??](https://github.com/tensorflow/tfjs-tsne). idk about [ andrej's ](https://github.com/karpathy/tsnejs)
 
-
-
 ## Useful tips
+
 `npx prisma db push`, be aware that this will drop and recreate the tables
 `npx prisma generate` then runs to generate the client
 
 This function lives on supabase:
+
 ```
 create or replace function match_documents (
   query_embedding vector(1536),
@@ -100,9 +98,11 @@ $$;
 -- <=>	cosine distance
 -- OpenAI recommends cosine similarity on their embeddings, so we will use that here.
 ```
+
 [Issue with docs filed](https://github.com/supabase/supabase/issues/12244)
 
 ## To Dos
+
     - configure policies for supa
     - Convert dashboard [ from Bootstrap to Tailwind ](https://tools.bitfertig.de/bootstrap2tailwind/index.php)
     - Add [ Tailwind styled components ](https://github.com/MathiasGilson/tailwind-styled-component)

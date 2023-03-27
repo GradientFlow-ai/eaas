@@ -31,3 +31,7 @@ export const DUMMY_DATA = [
 export const microservicesApi = process.env.DEV
   ? "http://localhost:3001/api"
   : "https://micro-api.vercel.app/api";
+
+
+export const communitySubtitle = "Liberty and Embeddings for All"
+export const enterpriseSubtitle = "We manage your embeddings so you don't have to"

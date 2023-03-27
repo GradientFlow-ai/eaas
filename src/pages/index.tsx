@@ -11,6 +11,7 @@ import {
   DEPLOY_URL,
   FADE_DOWN_ANIMATION_VARIANTS,
   DUMMY_DATA,
+  communitySubtitle,
 } from "lib/constants";
 import { Github, Twitter } from "components/shared/icons";
 import WebVitals from "components/home/web-vitals";
@@ -60,7 +61,6 @@ export default function Home() {
           <Scatterplot data={visualizationData} width={600} height={600} />
         </motion.div>
       </motion.div>
-      <Features />
     </Layout>
   );
 }
@@ -74,7 +74,6 @@ const CallToAction = () => (
   </motion.div>
 );
 // Features can go before closing Layout tag
-// TODO add features for us
 /* here we are animating with Tailwind instead of Framer Motion because Framer Motion messes up the z-index for child components */
 const Features = () => (
   <div className="my-10 grid w-full max-w-screen-xl animate-[slide-down-fade_0.5s_ease-in-out] grid-cols-1 gap-5 px-5 md:grid-cols-3 xl:px-0">
@@ -154,7 +153,7 @@ const PitchMessage = () => (
     className="bg-gradient-to-br from-black to-stone-500 bg-clip-text text-center font-display text-4xl font-bold tracking-[-0.02em] text-transparent drop-shadow-sm md:text-7xl md:leading-[5rem]"
     variants={FADE_DOWN_ANIMATION_VARIANTS}
   >
-    <Balancer>{"We manage your embeddings so you don't have to"}</Balancer>
+    <Balancer>{communitySubtitle}</Balancer>
   </motion.h1>
 );
 
