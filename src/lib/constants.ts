@@ -35,3 +35,6 @@ export const microservicesApi = process.env.DEV
 
 export const communitySubtitle = "Liberty and Embeddings for All"
 export const enterpriseSubtitle = "We manage your embeddings so you don't have to"
+
+export const oldPitch = "Upload, fine-tune, update, and visualize your embeddings"
+export const pitchMessage = "Find open-source embeddings for semantic searching and AI training"

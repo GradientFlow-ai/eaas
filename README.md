@@ -30,29 +30,30 @@ The below may change soon as we rebuild on Akash Network.
 ### Frameworks
 
 - Vector DB on Supabase.
-- [Next.js](https://nextjs.org/) – React framework for building performant apps with the best developer experience
-- [Auth.js](https://authjs.dev/) – Handle user authentication with ease with providers like Google, Twitter, GitHub, etc.
-- [Prisma](https://www.prisma.io/) – Typescript-first ORM for Node.js
+- [Next.js](https://nextjs.org/)
+- [Auth.js](https://authjs.dev/)
+- [Prisma](https://www.prisma.io/)
 
 ### Platforms
 
-- [Vercel](https://vercel.com/) – Easily preview & deploy changes with git
+- [Vercel](https://vercel.com/), for the frontend
 
 ### UI
 
-- [Tailwind CSS](https://tailwindcss.com/) – Utility-first CSS framework for rapid UI development
-- [Radix](https://www.radix-ui.com/) – Primitives like modal, popover, etc. to build a stellar user experience
-- [Framer Motion](https://framer.com/motion) – Motion library for React to animate components with ease
-- [Lucide](https://lucide.dev/) – Beautifully simple, pixel-perfect icons
-- [`@next/font`](https://nextjs.org/docs/basic-features/font-optimization) – Optimize custom fonts and remove external network requests for improved performance
-- [`@vercel/og`](https://vercel.com/docs/concepts/functions/edge-functions/og-image-generation) – Generate dynamic Open Graph images on the edge
-- [`react-wrap-balancer`](https://github.com/shuding/react-wrap-balancer) – Simple React component that makes titles more readable
+- [Tailwind CSS](https://tailwindcss.com/)
+- [Radix](https://www.radix-ui.com/)
+- [Framer Motion](https://framer.com/motion)
+- [Lucide](https://lucide.dev/), just a few left
+- [`@next/font`](https://nextjs.org/docs/basic-features/font-optimization)
+- [`@vercel/og`](https://vercel.com/docs/concepts/functions/edge-functions/og-image-generation)
+- [`react-wrap-balancer`](https://github.com/shuding/react-wrap-balancer)
+- [Easy React-pastable emojis](https://dreamyguy.github.io/react-emojis/)
 
 ### Code Quality
 
-- [TypeScript](https://www.typescriptlang.org/) – Static type checker for end-to-end typesafety
-- [Prettier](https://prettier.io/) – Opinionated code formatter for consistent code style
-- [ESLint](https://eslint.org/) – Pluggable linter for Next.js and TypeScript
+- [TypeScript](https://www.typescriptlang.org/)
+- [Prettier](https://prettier.io/)
+- [ESLint](https://eslint.org/)
 
 ### Miscellaneous
 

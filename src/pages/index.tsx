@@ -12,6 +12,7 @@ import {
   FADE_DOWN_ANIMATION_VARIANTS,
   DUMMY_DATA,
   communitySubtitle,
+  pitchMessage,
 } from "lib/constants";
 import { Github, Twitter } from "components/shared/icons";
 import WebVitals from "components/home/web-vitals";
@@ -44,7 +45,6 @@ export default function Home() {
           },
         }}
       >
-        <TwitterAnchor />
         <PitchMessage />
         <Subtitle />
         <motion.div
@@ -142,9 +142,7 @@ const Subtitle = () => (
     className="mt-6 text-center text-gray-500 md:text-xl"
     variants={FADE_DOWN_ANIMATION_VARIANTS}
   >
-    <Balancer>
-      Upload, fine-tune, update, and visualize your embeddings
-    </Balancer>
+    <Balancer>{pitchMessage}</Balancer>
   </motion.p>
 );
 

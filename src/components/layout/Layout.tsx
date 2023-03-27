@@ -118,7 +118,7 @@ const TopLeftLogoAndName = () => (
       height="30"
       className="mr-2 rounded-sm"
     ></Image>
-    <p>GradientFlow</p>
+    <p>GradientFlow ✨</p>
   </Link>
 );
 
