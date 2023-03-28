@@ -116,7 +116,7 @@ const TopLeftLogoAndName = () => (
       alt="GradientFlow logo"
       width="30"
       height="30"
-      className="mr-2 rounded-sm"
+      className="h-10 w-10 rounded-full"
     ></Image>
     <p>GradientFlow ✨</p>
   </Link>
