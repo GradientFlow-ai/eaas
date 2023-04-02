@@ -1,0 +1,73 @@
+name: Prisma Migration Deploy
+
+on:
+  pull_request:
+    types: [opened]
+  issue_comment:
+    types: [created]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  migrate:
+    runs-on: ubuntu-latest
+    env:
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      SHADOW_DATABASE_URL: ${{ secrets.SHADOW_DATABASE_URL }}
+
+    steps:
+      - name: Check for trigger word in PR comment
+        uses: khan/pull-request-comment-trigger@v1.1.0
+        id: check_trigger
+        with:
+          trigger: 'prisma migrate'
+          reaction: '+1'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+
+      - name: Checkout code
+        if: steps.check_trigger.outputs.triggered == 'true'
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        if: steps.check_trigger.outputs.triggered == 'true'
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16
+
+      - name: Install dependencies
+        if: steps.check_trigger.outputs.triggered == 'true'
+        run: yarn
+
+      - name: Run Prisma migration
+        if: steps.check_trigger.outputs.triggered == 'true'
+        run: npx prisma migrate deploy
+
+      - name: Leave a comment and a reaction
+        if: steps.check_trigger.outputs.triggered == 'true'
+        uses: actions/github-script@v5
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const commentId = context.payload.comment.id;
+            const runOutput = "The Prisma migration has been successfully deployed.";
+
+            // Add a thumbs up reaction
+            await github.rest.reactions.createForIssueComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              comment_id: commentId,
+              content: "rocket",
+            });
+
+            // Leave a comment with the output of the job
+            const commentBody = `### Migration Deployed\n\n${runOutput}`;
+            await github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: commentBody
+            });
