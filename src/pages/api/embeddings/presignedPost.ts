@@ -8,12 +8,29 @@ export default async function handler(
 ) {
   const s3Client = new S3Client({});
 
+  const key = req.query.file || '';
+  const bucket = process.env.S3_BUCKET_NAME || '';
+  const contentType = req.query.fileType || '';
+
+  if (!bucket.length) {
+    res.status(500).json({ error: 'S3_BUCKET_NAME not set' });
+    return;
+  }
+  if (!key.length) {
+    res.status(500).json({ error: 'file not set' });
+    return;
+  }
+  if (!contentType.length) {
+    res.status(500).json({ error: 'fileType not set' });
+    return;
+  }
+
   const post = await createPresignedPost(s3Client, {
-    Bucket: process.env.S3_BUCKET_NAME,
-    Key: req.query.file,
+    Bucket: bucket,
+    Key: key as string,
     Fields: {
       acl: 'public-read',
-      'Content-Type': req.query.fileType,
+      'Content-Type': contentType as string,
     },
     Expires: 600, // seconds
     Conditions: [
