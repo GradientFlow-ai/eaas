@@ -1,8 +1,7 @@
 name: Prisma Migration Deploy
 
-on:
-  issue_comment:
-    types: [created]
+
+on: [issue_comment]
 
 permissions:
   contents: read
