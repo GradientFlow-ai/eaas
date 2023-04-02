@@ -33,15 +33,15 @@ jobs:
       id: get_migration_details
       run: |
         MIGRATION_SQL=$(npx prisma migrate diff --from-url ${{ secrets.DATABASE_URL }} --to-url ${{ secrets.SHADOW_DATABASE_URL }} | tee migration_output.txt)
-        echo "MIGRATION_OUTPUT=$(cat migration_output.txt)" >> $GITHUB_ENV
-
+        echo "::set-output name=migration_output::$(cat migration_output.txt | base64)"
 
     - name: Post migration details as PR comment
       uses: actions/github-script@v5
       with:
         github-token: ${{ secrets.PRISMA_MIGRATION_COMMENT_TOKEN }}
         script: |
-          const migrationSql = `\`\`\`sql\n${process.env.MIGRATION_OUTPUT}\n\`\`\``;
+          const migrationOutput = Buffer.from('${{ steps.get_migration_details.outputs.migration_output }}', 'base64').toString('utf8');
+          const migrationSql = `\`\`\`sql\n${migrationOutput}\n\`\`\``;
           const commentBody = `### Migration Preview\n\nSQL:\n${migrationSql}`;
           github.rest.issues.createComment({
             issue_number: context.issue.number,
