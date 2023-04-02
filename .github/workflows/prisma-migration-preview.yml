@@ -1,0 +1,51 @@
+name: Prisma Migration Preview
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  migrate-preview:
+    runs-on: ubuntu-latest
+    env:
+     DATABASE_URL: ${{ secrets.DATABASE_URL }}
+     SHADOW_DATABASE_URL: ${{ secrets.SHADOW_DATABASE_URL }}
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: 16
+
+    - name: Install dependencies
+      run: yarn
+
+    - name: Run Prisma db push on shadow database
+      run: npx prisma db push --skip-generate --accept-data-loss --schema=prisma/schema.prisma
+      env:
+        SHADOW_DATABASE_URL: ${{ secrets.SHADOW_DATABASE_URL }}
+
+    - name: Get migration details
+      id: get_migration_details
+      run: |
+        MIGRATION_SQL=$(npx prisma migrate diff --from-url ${{ secrets.DATABASE_URL }} --to-url ${{ secrets.SHADOW_DATABASE_URL }} | tee migration_output.txt)
+        echo "MIGRATION_OUTPUT=$(cat migration_output.txt)" >> $GITHUB_ENV
+
+
+    - name: Post migration details as PR comment
+      uses: actions/github-script@v5
+      with:
+        github-token: ${{ secrets.PRISMA_MIGRATION_COMMENT_TOKEN }}
+        script: |
+          const migrationSql = `\`\`\`sql\n${process.env.MIGRATION_OUTPUT}\n\`\`\``;
+          const commentBody = `### Migration Preview\n\nSQL:\n${migrationSql}`;
+          github.rest.issues.createComment({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: commentBody
+          });

@@ -1,6 +1,7 @@
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
 
 generator client {
@@ -50,6 +51,12 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
+}
+
+model S3Embeddings {
+    id         Int      @id @default(autoincrement())
+    content    String
+    bucketAddress String
 }
 
 model VerificationToken {
