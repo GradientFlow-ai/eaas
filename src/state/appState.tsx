@@ -2,6 +2,7 @@ export const baseAppState: AppState = {
   generalState: {
     isSidebarOpen: false,
     currentTheme: "landing",
+    s3FileInfo: [],
   },
   landing: {
     shouldShowBurger: false,

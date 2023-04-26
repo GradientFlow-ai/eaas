@@ -11,7 +11,7 @@ import cx from "classnames";
 import localFont from "@next/font/local";
 import { Inter } from "@next/font/google";
 
-import { baseAppState, AppContext, ContextApp } from "state";
+import { baseAppState, AppContext, ContextApp, useFetchFiles } from "state";
 
 const sfPro = localFont({
   src: "../styles/SF-Pro-Display-Medium.otf",
@@ -36,6 +36,8 @@ export default function MyApp({
     appState,
     setAppState,
   };
+
+  useFetchFiles();
 
   return (
     <SessionProvider session={session}>
