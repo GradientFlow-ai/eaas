@@ -36,6 +36,21 @@ const Button = tw.button`
   shadow-md
   transition
   duration-200
+  ${(p) => p.disabled && "opacity-50 cursor-not-allowed"}
+`;
+
+const CardButton = tw.button`
+  bg-gradient-to-r
+  from-burnt-orange-300
+  to-burnt-orange-200
+  text-white
+  font-semibold
+  py-2
+  px-4
+  rounded
+  shadow-md
+  transition
+  duration-200
 `;
 
 export default function Upload() {
@@ -43,6 +58,8 @@ export default function Upload() {
   const [uploading, setUploading] = useState(false);
   const [progress, setProgress] = useState(0);
   const [uploaded, setUploaded] = useState(false);
+  const [error, setError] = useState("");
+  const [showFront, setShowFront] = useState(true);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedFile(e.target.files?.[0]);
@@ -51,27 +68,51 @@ export default function Upload() {
   const handleUpload = async () => {
     if (selectedFile) {
       setUploading(true);
-      await uploadPhoto(selectedFile, setProgress);
+      const result = await uploadPhoto(selectedFile, setProgress);
       setUploading(false);
-      setUploaded(true);
+      if (result) {
+        setUploaded(true);
+      } else {
+        setError(
+          "Upload failed. The file name may already exist on the server.",
+        );
+      }
     }
+  };
+
+  const handleClick = () => {
+    setShowFront(!showFront);
   };
 
   return (
     <Card>
-      <Heading>Upload a .png or .jpg image (max 1MB).</Heading>
-      <div className="mt-4">
-        <input
-          onChange={handleChange}
-          type="file"
-          accept="image/png, image/jpeg"
-        />
-        <Button onClick={handleUpload} disabled={!selectedFile}>
-          Confirm Upload
-        </Button>
-        {uploading && <p>Uploading... {progress}%</p>}
-        {uploaded && <p>Upload completed!</p>}
-      </div>
+      {showFront ? (
+        <div className="text-center">
+          <Heading>Share an Embedding</Heading>
+          <div className="mt-4">
+            <CardButton onClick={handleClick}>Upload</CardButton>
+          </div>
+        </div>
+      ) : (
+        <div>
+          <Heading onClick={handleClick}>
+            Upload a .parquet or .pkl file (max 1MB).
+          </Heading>
+          <div className="mt-4">
+            <input
+              onChange={handleChange}
+              type="file"
+              accept="application/octet-stream,application/x-parquet,application/x-python-pickle"
+            />
+            <Button onClick={handleUpload} disabled={!selectedFile}>
+              Confirm Upload
+            </Button>
+            {uploading && <p>Uploading... {progress}%</p>}
+            {uploaded && <p>Upload completed!</p>}
+            {error && <p className="text-red-500">{error}</p>}
+          </div>
+        </div>
+      )}
     </Card>
   );
 }
@@ -97,14 +138,13 @@ const uploadPhoto = async (
   const upload = await fetch(url, {
     method: "POST",
     body: formData,
-    headers: {
-      "Content-Type": "multipart/form-data",
-    },
   });
 
   if (upload.ok) {
     console.log("Uploaded successfully!");
+    return true;
   } else {
     console.error("Upload failed.");
+    return false;
   }
 };
