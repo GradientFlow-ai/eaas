@@ -17,7 +17,13 @@ module.exports = {
     hoverOnlyWhenSupported: true,
   },
   theme: {
-    colors: { ...colors },
+    colors: {
+      ...colors,
+      "burnt-orange-200": "#F0A880",
+      "burnt-orange-300": "#E9714C",
+      "light-orange-200": "#FFD5B0",
+      "light-orange-300": "#FFC48F",
+    },
     extend: {
       fontFamily: {
         display: ["var(--font-sf)", "system-ui", "sans-serif"],

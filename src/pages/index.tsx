@@ -3,8 +3,8 @@ import Image from "next/image";
 import Balancer from "react-wrap-balancer";
 import { motion } from "framer-motion";
 
-import Card from "components/shared/Grid/card";
 import { CardGrid } from "components/shared/Grid/CardGrid";
+import { Upload } from "components/shared/Upload";
 import { Layout } from "components/layout";
 import { AppContext, themes } from "state";
 
@@ -21,6 +21,8 @@ import { Github, Twitter } from "components/shared/icons";
 import WebVitals from "components/home/web-vitals";
 import ComponentGrid from "components/home/component-grid";
 import Scatterplot from "components/scatterplot";
+
+/* import Upload from "lib/uploadToS3"; */
 
 export default function Home() {
   const [visualizationData, setVisualizationData] = useState(DUMMY_DATA);
@@ -49,6 +51,7 @@ export default function Home() {
         }}
       >
         <PitchMessage />
+        <Upload />
         <Subtitle />
         <motion.div
           className="mx-auto flex items-center justify-center space-x-5"
