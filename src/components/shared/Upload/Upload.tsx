@@ -38,15 +38,17 @@ const Button = tw.button`
   duration-200
   ${(p) => p.disabled && "opacity-50 cursor-not-allowed"}
 `;
-
 const CardButton = tw.button`
+  items-center
+  justify-between
   bg-gradient-to-r
-  from-burnt-orange-300
-  to-burnt-orange-200
+  from-burnt-orange-200
+  to-burnt-orange-300
   text-white
   font-semibold
-  py-2
-  px-4
+  text-xl
+  py-3
+  px-6
   rounded
   shadow-md
   transition
@@ -54,7 +56,7 @@ const CardButton = tw.button`
 `;
 
 export default function Upload() {
-  const [selectedFile, setSelectedFile] = useState(null);
+  const [selectedFile, setSelectedFile] = useState<File | undefined>(undefined);
   const [uploading, setUploading] = useState(false);
   const [progress, setProgress] = useState(0);
   const [uploaded, setUploaded] = useState(false);
@@ -84,26 +86,31 @@ export default function Upload() {
     setShowFront(!showFront);
   };
 
+  const FrontSide = () => (
+    <div className="text-center">
+      <CardButton onClick={handleClick}>
+        <span role="img" aria-label="heart">
+          ❤️
+        </span>
+        Share an Embedding
+        <span role="img" aria-label="love-you-hand">
+          🤟
+        </span>
+      </CardButton>
+    </div>
+  );
+
   return (
     <Card>
       {showFront ? (
-        <div className="text-center">
-          <Heading>Share an Embedding</Heading>
-          <div className="mt-4">
-            <CardButton onClick={handleClick}>Upload</CardButton>
-          </div>
-        </div>
+        <FrontSide />
       ) : (
         <div>
           <Heading onClick={handleClick}>
-            Upload a .parquet or .pkl file (max 1MB).
+            Upload a .parquet or .pkl file
           </Heading>
           <div className="mt-4">
-            <input
-              onChange={handleChange}
-              type="file"
-              accept="application/octet-stream,application/x-parquet,application/x-python-pickle"
-            />
+            <input onChange={handleChange} type="file" />
             <Button onClick={handleUpload} disabled={!selectedFile}>
               Confirm Upload
             </Button>
