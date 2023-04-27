@@ -64,12 +64,19 @@ text-lg
 text-gray-600
 `;
 
+type FormValues = {
+  userName: string;
+  embeddingsName: string;
+  modelUsed: string;
+  license: string;
+};
+
 const UserInfoForm = () => {
-  const { register, handleSubmit, formState } = useForm();
+  const { register, handleSubmit, formState } = useForm<FormValues>();
 
-  const { updateAppState } = useSetAppState();
+  const updateAppState = useSetAppState();
 
-  const onSubmit = (data) => {
+  const onSubmit = (data: FormValues) => {
     console.log(data);
     /* updateAppState({ ...data }); */
   };
