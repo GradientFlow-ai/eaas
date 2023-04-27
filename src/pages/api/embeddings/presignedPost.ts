@@ -6,17 +6,34 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
-  const s3Client = new S3Client({});
 
-  const key = req.query.file || '';
+  // Locally an empty object will pick up credentials from the env but on Vercel we need to pass them in
+  const s3Client = new S3Client({
+    region: process.env.AWS_REGION || '',
+        credentials:{
+            accessKeyId: process.env.AWS_ACCESS_KEY_ID || '',
+            secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY || ''
+        }
+  });
+
+  const key = req.query.file as string;
   const bucket = process.env.S3_BUCKET_NAME || '';
-  const contentType = req.query.fileType || '';
+  let contentType = req.query.fileType || '';
+
+  if (!contentType.length && key) {
+    if (key.endsWith('.parquet')) {
+      contentType = 'application/x-parquet'
+    } else if (key.endsWith('.pkl') || key.endsWith('.pickle')) {
+      contentType = 'application/x-python-pickle';
+    }
+    console.log('contentType', contentType);
+  }
 
   if (!bucket.length) {
     res.status(500).json({ error: 'S3_BUCKET_NAME not set' });
     return;
   }
-  if (!key.length) {
+  if (!key || !key.length) {
     res.status(500).json({ error: 'file not set' });
     return;
   }
