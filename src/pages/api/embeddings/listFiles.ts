@@ -5,7 +5,13 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const s3Client = new S3Client({});
+  const s3Client = new S3Client({
+    region: process.env.AWS_REGION || '',
+        credentials:{
+            accessKeyId: process.env.AWS_ACCESS_KEY_ID || '',
+            secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY || ''
+        }
+  });
   const bucket = process.env.S3_BUCKET_NAME || '';
 
   if (!bucket.length) {
