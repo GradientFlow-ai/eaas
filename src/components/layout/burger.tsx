@@ -23,7 +23,6 @@ export const BurgerMenu = () => {
   const setAppState = useSetAppState();
 
   const setShowSidebar = () => {
-    console.log("setShowSidebar");
     setAppState({ isSidebarOpen: !isSidebarOpen });
   };
 

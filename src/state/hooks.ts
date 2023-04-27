@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useCallback, useContext } from "react";
 import { useRouter } from "next/router";
 import { AppContext } from "./appContext";
 
@@ -23,18 +23,20 @@ const usePageState = () => {
     return {...appState.generalState, ...appState[currentPage] }
 }
 
+
 const useSetAppState = () => {
   const { appState, setAppState } = useContext(AppContext);
 
-  const updateAppState = (state: any, page?: string) => {
-    const pageKey = page || "generalState";
-    const subState = appState[pageKey]
-    const newState = { ...subState, ...state };
-    setAppState({ ...appState, [pageKey]: newState });
-  };
+  const updateAppState = useCallback((state: any, page?: string) => {
+    const pageKey = page || 'generalState';
+    setAppState((prevState: any) => {
+      const subState = prevState[pageKey];
+      const newState = { ...subState, ...state };
+      return { ...prevState, [pageKey]: newState };
+    });
+  }, [setAppState]);
 
   return updateAppState;
-
 };
 
 export { usePageState, usePageTheme, useSetAppState };

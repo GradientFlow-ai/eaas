@@ -47,9 +47,6 @@ async function searchEmbeddings(req: NextApiRequest, res: NextApiResponse) {
   //   query_embedding: embedding,
   // });
 
-  console.log("let us see what we have");
-  console.log(results);
-
   res.status(200).json({ documents: results.data });
 }
 

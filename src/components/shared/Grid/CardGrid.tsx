@@ -1,6 +1,9 @@
+import { useEffect } from "react";
 import tw from "tailwind-styled-components";
-import Card from "./card";
 import { mockEmbeddings } from "lib/mockData";
+import { useFetchFiles, usePageState } from "state";
+
+import Card from "./card";
 
 const useEmbeddings = () => {
   return mockEmbeddings;
@@ -19,6 +22,8 @@ drop-shadow-sm
 `;
 export const CardGrid = () => {
   const embeddings = useEmbeddings();
+  const { s3FileInfo } = usePageState();
+  useFetchFiles();
   return (
     <>
       <Heading>Embeddings</Heading>

@@ -3,12 +3,14 @@ import { ContextApp, AppContext } from "./appContext";
 import { baseAppState } from "./appState";
 
 import { usePageState, usePageTheme, useSetAppState } from "./hooks";
+import useFetchFiles from "./useFetchFiles";
 
 export {
   baseAppState,
   AppContext,
   themes,
   ContextApp,
+  useFetchFiles,
   usePageState,
   usePageTheme,
   useSetAppState,
