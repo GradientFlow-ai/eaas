@@ -11,7 +11,7 @@ const useFetchFiles = () => {
         const files = await response.json();
 
         // Update the app state with the fetched files
-        updateAppState({ files }, 'files');
+          updateAppState({ s3FileInfo: files }, 'generalState');
       } catch (error) {
         console.error('Error fetching files:', error);
       }
