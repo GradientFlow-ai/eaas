@@ -106,7 +106,7 @@ export default function Upload() {
   const [selectedFile, setSelectedFile] = useState<File | undefined>(undefined);
   const [uploading, setUploading] = useState(false);
   const [progress, setProgress] = useState(0);
-  const [uploaded, setUploaded] = useState(true);
+  const [uploaded, setUploaded] = useState(false);
   const [error, setError] = useState("");
   const [showFront, setShowFront] = useState(true);
 
