@@ -82,6 +82,20 @@ const CardButton = tw.button`
   duration-200
 `;
 
+const CustomFileInputLabel = tw.label`
+  bg-blue-400
+  hover:bg-blue-500
+  text-white
+  font-semibold
+  py-2
+  px-4
+  rounded
+  shadow-md
+  transition
+  duration-200
+  cursor-pointer
+`;
+
 const UploadingSpinner = () => (
   <svg
     aria-hidden="true"
@@ -104,6 +118,7 @@ const UploadingSpinner = () => (
 
 export default function Upload() {
   const [selectedFile, setSelectedFile] = useState<File | undefined>(undefined);
+  const [selectedFileName, setSelectedFileName] = useState("");
   const [uploading, setUploading] = useState(false);
   const [progress, setProgress] = useState(0);
   const [uploaded, setUploaded] = useState(false);
@@ -111,7 +126,9 @@ export default function Upload() {
   const [showFront, setShowFront] = useState(true);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSelectedFile(e.target.files?.[0]);
+    const file = e.target.files?.[0];
+    setSelectedFile(file);
+    setSelectedFileName(file ? file.name : "");
   };
   const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
@@ -119,7 +136,9 @@ export default function Upload() {
 
   const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
-    setSelectedFile(e.dataTransfer.files?.[0]);
+    const file = e.dataTransfer.files?.[0];
+    setSelectedFile(file);
+    setSelectedFileName(file ? file.name : "");
   };
 
   const handleUpload = async () => {
@@ -157,16 +176,25 @@ export default function Upload() {
 
   const CardBack = () => (
     <div onDragOver={handleDragOver} onDrop={handleDrop}>
-      <Heading onClick={handleClick}>Upload a .parquet or .pkl file</Heading>
-      <div className="mt-4">
-        <input onChange={handleChange} type="file" />
-        <Button onClick={handleUpload} disabled={!selectedFile}>
-          {uploading && <UploadingSpinner />}
-          Confirm Upload
-        </Button>
-        {uploading && <p>Uploading, please do not close the browser...</p>}
-        {uploaded && <p>Upload completed!</p>}
-        {error && <p className="text-red-500">{error}</p>}
+      <Heading onClick={handleClick}>
+        Upload a .parquet, .pkl, or .csv file
+      </Heading>
+      <div className="mt-4 grid grid-cols-2 gap-4">
+        <div>
+          <input id="file-upload" onChange={handleChange} type="file" hidden />
+          <CustomFileInputLabel htmlFor="file-upload">
+            {selectedFileName || "Choose a file"}
+          </CustomFileInputLabel>
+        </div>
+        <div>
+          <Button onClick={handleUpload} disabled={!selectedFile}>
+            {uploading && <UploadingSpinner />}
+            Confirm Upload
+          </Button>
+          {uploading && <p>Uploading, please do not close the browser...</p>}
+          {uploaded && <p>Upload completed!</p>}
+          {error && <p className="text-red-500">{error}</p>}
+        </div>
       </div>
     </div>
   );
