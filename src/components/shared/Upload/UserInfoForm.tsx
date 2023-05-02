@@ -1,5 +1,7 @@
 import { useContext } from "react";
 import { useForm } from "react-hook-form";
+import { useSession, SessionProvider } from "next-auth/react";
+
 import tw from "tailwind-styled-components";
 
 import { useSetAppState } from "state";
@@ -65,6 +67,7 @@ text-gray-600
 `;
 
 type FormValues = {
+  userId?: string;
   userName: string;
   embeddingsName: string;
   modelUsed: string;
@@ -72,13 +75,29 @@ type FormValues = {
 };
 
 const UserInfoForm = () => {
+  const { data: session } = useSession();
+  console.log(session);
+  const userId = session?.user?.email;
+
   const { register, handleSubmit, formState } = useForm<FormValues>();
 
   const updateAppState = useSetAppState();
 
-  const onSubmit = (data: FormValues) => {
-    console.log(data);
-    /* updateAppState({ ...data }); */
+  const onSubmit = async (data: FormValues) => {
+    try {
+      const response = await fetch("/api/submitEmbeddingInfo", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ ...data, userId }),
+      });
+
+      /* updateAppState({ ...data }); */
+      // ...
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <div>
@@ -88,7 +107,7 @@ const UserInfoForm = () => {
         fields are optional)
       </Paragragh>
       <Form onSubmit={handleSubmit(onSubmit)}>
-        <Label htmlFor="userName">Contributor's Name</Label>
+        <Label htmlFor="userName">Contributor Name</Label>
         <Input id="userName" {...register("userName")} />
 
         <Label htmlFor="embeddingsName">Embeddings Name</Label>
