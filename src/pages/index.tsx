@@ -11,7 +11,6 @@ import { AppContext, themes } from "state";
 import emojis from "lib/emojis";
 
 import {
-  DEPLOY_URL,
   FADE_DOWN_ANIMATION_VARIANTS,
   DUMMY_DATA,
   communitySubtitle,
