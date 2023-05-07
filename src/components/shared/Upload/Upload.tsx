@@ -1,4 +1,7 @@
 import { useState } from "react";
+import { useSession } from "next-auth/react";
+import { useSignInModal } from "../../layout/sign-in-modal";
+
 import tw from "tailwind-styled-components";
 import UserInfoForm from "./UserInfoForm";
 
@@ -156,13 +159,24 @@ export default function Upload() {
     }
   };
 
+  const { data: session } = useSession();
+  const { SignInModal, setShowSignInModal } = useSignInModal();
+
+  const handleSignIn = () => {
+    if (!session) {
+      setShowSignInModal(true);
+    } else {
+      handleClick();
+    }
+  };
+
   const handleClick = () => {
     setShowFront(!showFront);
   };
 
   const CardFront = () => (
     <div className="text-center">
-      <CardButton onClick={handleClick}>
+      <CardButton onClick={handleSignIn}>
         <span role="img" aria-label="heart">
           ❤️
         </span>
@@ -201,7 +215,16 @@ export default function Upload() {
 
   return (
     <Card>
-      {showFront ? <CardFront /> : uploaded ? <UserInfoForm /> : <CardBack />}
+      {showFront ? (
+        <>
+          <CardFront />
+          <SignInModal />
+        </>
+      ) : uploaded ? (
+        <UserInfoForm />
+      ) : (
+        <CardBack />
+      )}
     </Card>
   );
 }
