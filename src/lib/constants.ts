@@ -14,8 +14,6 @@ export const FADE_UP_ANIMATION_VARIANTS = {
   show: { opacity: 1, y: 0, transition: { type: "spring" } },
 };
 
-export const DEPLOY_URL = "https://localhost:3000";
-
 export const DUMMY_DATA = [
   // { x: -0.13414751194986796, y: -0.3935611312813702 },
   // { x: 0.05240768059068097, y: 0.8814799638595909 },
