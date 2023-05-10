@@ -40,7 +40,7 @@ export default function MyApp({
   return (
     <SessionProvider session={session}>
       <AppContext.Provider value={appContext}>
-        <div className={cx(sfPro.variable, inter.variable)}>
+        <div className={cx(sfPro.variable, inter.variable)} id="root">
           <Component {...pageProps} />
         </div>
       </AppContext.Provider>

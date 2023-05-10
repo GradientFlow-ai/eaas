@@ -20,6 +20,7 @@ export default function Modal({
   setShowModal: Dispatch<SetStateAction<boolean>>;
 }) {
   const desktopModalRef = useRef(null);
+  const fallbackRef = useRef(null); // New ref for the fallback focus element
 
   const onKeyDown = useCallback(
     (e: KeyboardEvent) => {
@@ -44,7 +45,12 @@ export default function Modal({
           {isMobile && <Leaflet setShow={setShowModal}>{children}</Leaflet>}
           {isDesktop && (
             <>
-              <FocusTrap focusTrapOptions={{ initialFocus: false }}>
+              <FocusTrap
+                focusTrapOptions={{
+                  initialFocus: false,
+                  fallbackFocus: fallbackRef.current || "#root",
+                }}
+              >
                 <motion.div
                   ref={desktopModalRef}
                   key="desktop-modal"
