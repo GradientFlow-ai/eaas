@@ -25,13 +25,6 @@ import Scatterplot from "components/scatterplot";
 
 export default function Home() {
   const [visualizationData, setVisualizationData] = useState(DUMMY_DATA);
-
-  const fetchVisualizationData = useEffect(() => {
-    fetch("/api/visualizations/tsne")
-      .then((res) => res.json())
-      .then((data) => setVisualizationData(data.data));
-  }, []);
-
   return (
     <Layout>
       <motion.div
