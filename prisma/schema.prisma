@@ -1,12 +1,13 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["clientExtensions", "postgresqlExtensions"]  // Enable the postgresqlExtensions. Currently in preview
+}
+
 datasource db {
   provider          = "postgresql"
   url               = env("DATABASE_URL")
   shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
-}
-
-generator client {
-  provider        = "prisma-client-js"
-  previewFeatures = ["clientExtensions"]
+  extensions = [pgvector(map: "vector", schema: "public")]  // Add the pgvector extension
 }
 
 model Account {
@@ -30,12 +31,6 @@ model Account {
   @@unique([provider, providerAccountId])
 }
 
-model Documents {
-  id        Int                          @id @default(autoincrement())
-  content   String
-  embedding Unsupported("vector (1536)")
-}
-
 model Session {
   id           String   @id @default(cuid())
   sessionToken String   @unique @map("session_token")
@@ -56,10 +51,15 @@ model User {
 }
 
 model S3File {
-  id       Int     @id @default(autoincrement())
-  uuid     String  @unique
-  filename String
-  email    String
-  User     User?   @relation(fields: [userId], references: [id])
-  userId   String?
+  id              Int     @id @default(autoincrement())
+  uuid            String  @unique
+  fileName        String
+  userEmail       String
+  User            User    @relation(fields: [userId], references: [id])
+  userId          String
+  description     String?
+  embeddingsModel String?
+  embeddingsName  String?
+  contributorName String?
+  license         String?
 }

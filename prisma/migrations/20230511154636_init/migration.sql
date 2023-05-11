@@ -1,3 +1,6 @@
+-- CreateExtension
+CREATE EXTENSION IF NOT EXISTS "vector" WITH SCHEMA "public";
+
 -- CreateTable
 CREATE TABLE "Account" (
     "id" TEXT NOT NULL,
@@ -43,8 +46,14 @@ CREATE TABLE "User" (
 CREATE TABLE "S3File" (
     "id" SERIAL NOT NULL,
     "uuid" TEXT NOT NULL,
-    "filename" TEXT NOT NULL,
-    "email" TEXT NOT NULL,
+    "fileName" TEXT NOT NULL,
+    "userEmail" TEXT NOT NULL,
+    "userId" TEXT NOT NULL,
+    "description" TEXT,
+    "embeddingsModel" TEXT,
+    "embeddingsName" TEXT,
+    "contributorName" TEXT,
+    "license" TEXT,
 
     CONSTRAINT "S3File_pkey" PRIMARY KEY ("id")
 );
@@ -66,3 +75,6 @@ ALTER TABLE "Account" ADD CONSTRAINT "Account_user_id_fkey" FOREIGN KEY ("user_i
 
 -- AddForeignKey
 ALTER TABLE "Session" ADD CONSTRAINT "Session_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "S3File" ADD CONSTRAINT "S3File_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
