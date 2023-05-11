@@ -1,7 +1,7 @@
 import { VercelRequest, VercelResponse } from "@vercel/node";
 import supabaseClient from 'lib/supabaseClient'
 
-export default async (req: VercelRequest, res: VercelResponse) => {
+const submitEmbeddingsInfo = async (req: VercelRequest, res: VercelResponse) => {
   if (req.method === "POST") {
     const { userId, userName, embeddingsName, modelUsed, license } = req.body;
 
@@ -28,3 +28,5 @@ export default async (req: VercelRequest, res: VercelResponse) => {
     res.status(405).json({ message: "Method not allowed." });
   }
 };
+
+export default submitEmbeddingsInfo;
