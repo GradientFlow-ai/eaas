@@ -246,7 +246,7 @@ export default function Upload() {
           <SignInModal />
         </>
       ) : uploaded ? (
-        <UserInfoForm />
+        <UserInfoForm goBackToFront={handleClick} />
       ) : (
         <CardBack />
       )}

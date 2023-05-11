@@ -90,6 +90,24 @@ font-display
 text-lg
 text-gray-600
 `;
+const ShimmerText = tw.h1`
+  animate-text
+  bg-gradient-to-r
+  from-teal-500
+  via-purple-700
+  to-orange-500
+  bg-clip-text
+  text-transparent
+  text-5xl
+  font-black
+  text-center
+  mt-8
+`;
+
+const TransitionDiv = tw.div`
+  transition-all
+  duration-500
+`;
 
 type FormValues = {
   userId?: string;
@@ -101,7 +119,7 @@ type FormValues = {
   contributorName: string;
 };
 
-const UserInfoForm = () => {
+const UserInfoForm = ({ goBackToFront }: { goBackToFront: () => void }) => {
   const { data: session } = useSession();
   const [fileInfoSavedToSupabase, setFileInfoSavedToSupabase] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
@@ -120,51 +138,59 @@ const UserInfoForm = () => {
     );
   };
   return (
-    <div>
-      <Heading>Thank you! You rock!</Heading>
-      <Paragragh>
-        Can you tell us more about the embeddings you are contributing? (All
-        fields are optional)
-      </Paragragh>
-      <Form onSubmit={handleSubmit(onSubmit)}>
-        <Label htmlFor="description">Description</Label>
-        <TextArea
-          id="description"
-          {...register("description")}
-          onFocus={() => setIsFocused(true)}
-          onBlur={() => setIsFocused(false)}
-          rows={isFocused ? 10 : 2}
-        />
-        <ToggleButton
-          type="button"
-          onClick={() => setIsFocused((prev) => !prev)}
-        >
-          {isFocused ? "Hide" : "Show more"}
-        </ToggleButton>
-        <Label htmlFor="embeddingsModel">
-          Model Used to Train the Embeddings
-        </Label>
-        <Input id="embeddingsModel" {...register("embeddingsModel")} />
+    <TransitionDiv>
+      {fileInfoSavedToSupabase ? (
+        <ShimmerText onClick={goBackToFront}>
+          Thank you for your contribution!
+        </ShimmerText>
+      ) : (
+        <>
+          <Heading>Thank you! You rock!</Heading>
+          <Paragragh>
+            Can you tell us more about the embeddings you are contributing? (All
+            fields are optional)
+          </Paragragh>
+          <Form onSubmit={handleSubmit(onSubmit)}>
+            <Label htmlFor="description">Description</Label>
+            <TextArea
+              id="description"
+              {...register("description")}
+              onFocus={() => setIsFocused(true)}
+              onBlur={() => setIsFocused(false)}
+              rows={isFocused ? 10 : 2}
+            />
+            <ToggleButton
+              type="button"
+              onClick={() => setIsFocused((prev) => !prev)}
+            >
+              {isFocused ? "Hide" : "Show more"}
+            </ToggleButton>
+            <Label htmlFor="embeddingsModel">
+              Model Used to Train the Embeddings
+            </Label>
+            <Input id="embeddingsModel" {...register("embeddingsModel")} />
 
-        <Label htmlFor="embeddingsName">Embeddings Name</Label>
-        <Input id="embeddingsName" {...register("embeddingsName")} />
+            <Label htmlFor="embeddingsName">Embeddings Name</Label>
+            <Input id="embeddingsName" {...register("embeddingsName")} />
 
-        <Label htmlFor="contributorName">Contributor Name</Label>
-        <Input id="contributorName" {...register("contributorName")} />
+            <Label htmlFor="contributorName">Contributor Name</Label>
+            <Input id="contributorName" {...register("contributorName")} />
 
-        <Label htmlFor="license">License</Label>
-        <Select id="license" {...register("license")}>
-          <option value="">Select License</option>
-          <option value="mit">MIT License</option>
-          <option value="gpl">GNU General Public License (GPL)</option>
-          <option value="apache">Apache License 2.0</option>
-          <option value="bsd">BSD License</option>
-          <option value="other">Other</option>
-        </Select>
+            <Label htmlFor="license">License</Label>
+            <Select id="license" {...register("license")}>
+              <option value="">Select License</option>
+              <option value="mit">MIT License</option>
+              <option value="gpl">GNU General Public License (GPL)</option>
+              <option value="apache">Apache License 2.0</option>
+              <option value="bsd">BSD License</option>
+              <option value="other">Other</option>
+            </Select>
 
-        <Button type="submit">Submit</Button>
-      </Form>
-    </div>
+            <Button type="submit">Submit</Button>
+          </Form>
+        </>
+      )}
+    </TransitionDiv>
   );
 };
 
