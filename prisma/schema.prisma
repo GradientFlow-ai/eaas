@@ -56,18 +56,10 @@ model User {
 }
 
 model S3File {
-  id       Int    @id @default(autoincrement())
-  uuid     String @unique
+  id       Int     @id @default(autoincrement())
+  uuid     String  @unique
   filename String
-  user     User   @relation(fields: [userId], references: [id])
-  userId   String
-}
-
-model VerificationToken {
-  id         Int      @id @default(autoincrement())
-  identifier String
-  token      String   @unique
-  expires    DateTime
-
-  @@unique([identifier, token])
+  email    String
+  User     User?   @relation(fields: [userId], references: [id])
+  userId   String?
 }
