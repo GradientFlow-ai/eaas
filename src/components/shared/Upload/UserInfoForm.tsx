@@ -1,10 +1,10 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useSession, SessionProvider } from "next-auth/react";
-
+import { useSession } from "next-auth/react";
 import tw from "tailwind-styled-components";
 
-import { useSetAppState } from "state";
+import { updateInSupabase } from "lib/saveInfoToSupabase";
+import { usePageState } from "state";
 
 const Form = tw.form`
   mt-4
@@ -95,34 +95,29 @@ type FormValues = {
   userId?: string;
   userName: string;
   embeddingsName: string;
-  modelUsed: string;
+  embeddingsModel: string;
+  description: string;
   license: string;
+  contributorName: string;
 };
 
 const UserInfoForm = () => {
   const { data: session } = useSession();
-  console.log(session);
-  const userId = session?.user?.email;
+  const [fileInfoSavedToSupabase, setFileInfoSavedToSupabase] = useState(false);
+  const [isFocused, setIsFocused] = useState(false);
 
   const { register, handleSubmit, formState } = useForm<FormValues>();
-
-  const updateAppState = useSetAppState();
+  const { uploadedFileUUID } = usePageState();
 
   const onSubmit = async (data: FormValues) => {
-    try {
-      const response = await fetch("/api/submitEmbeddingInfo", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ ...data, userId }),
-      });
-
-      /* updateAppState({ ...data }); */
-      // ...
-    } catch (error) {
-      console.log(error);
-    }
+    await updateInSupabase(
+      {
+        ...data,
+        userEmail: session?.user?.email || "",
+        uuid: uploadedFileUUID,
+      },
+      setFileInfoSavedToSupabase,
+    );
   };
   return (
     <div>
