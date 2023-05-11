@@ -12,19 +12,14 @@ import emojis from "lib/emojis";
 
 import {
   FADE_DOWN_ANIMATION_VARIANTS,
-  DUMMY_DATA,
   communitySubtitle,
   pitchMessage,
 } from "lib/constants";
 import { Github, Twitter } from "components/shared/icons";
 import WebVitals from "components/home/web-vitals";
 import ComponentGrid from "components/home/component-grid";
-import Scatterplot from "components/scatterplot";
-
-/* import Upload from "lib/uploadToS3"; */
 
 export default function Home() {
-  const [visualizationData, setVisualizationData] = useState(DUMMY_DATA);
   return (
     <Layout>
       <motion.div
@@ -45,53 +40,11 @@ export default function Home() {
         <PitchMessage />
         <Upload />
         <Subtitle />
-        <motion.div
-          className="mx-auto flex items-center justify-center space-x-5"
-          variants={FADE_DOWN_ANIMATION_VARIANTS}
-        >
-          <motion.p
-            className="mt-6 text-center italic text-gray-500 md:text-xl"
-            variants={FADE_DOWN_ANIMATION_VARIANTS}
-          >
-            Gapminder data, grouped with t-SNE
-          </motion.p>
-
-          <Scatterplot data={visualizationData} width={600} height={600} />
-        </motion.div>
       </motion.div>
       <CardGrid />
     </Layout>
   );
 }
-
-const CallToAction = () => (
-  <motion.div
-    className="mx-auto mt-6 flex items-center justify-center space-x-5"
-    variants={FADE_DOWN_ANIMATION_VARIANTS}
-  >
-    <TestViz />
-  </motion.div>
-);
-
-const vizAPI = (query: string) =>
-  fetch("/api/visualizations/tsne", {
-    method: "POST",
-    headers: {
-      "Content-type": "application/json",
-    },
-    body: JSON.stringify({ query }),
-  })
-    .then((res) => res.json())
-    .then((json) => console.log(json));
-
-const TestViz = () => (
-  <button
-    className="flex max-w-fit items-center justify-center space-x-2 rounded-full border border-gray-300 bg-white px-5 py-2 text-sm text-gray-600 shadow-md transition-colors hover:border-gray-800"
-    onClick={() => vizAPI(`{ hello }`)}
-  >
-    <p>Demo a viz</p>
-  </button>
-);
 
 const GithubStarAnchor = () => (
   <a
@@ -122,7 +75,7 @@ const TwitterAnchor = () => (
 
 const Subtitle = () => (
   <motion.p
-    className="mt-6 text-center text-gray-500 md:text-xl"
+    className="mb-10 mt-6 text-center text-gray-500 md:text-xl"
     variants={FADE_DOWN_ANIMATION_VARIANTS}
   >
     <Balancer>{pitchMessage}</Balancer>
