@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "dev:ts": "yarn dev & yarn ts:watch",
+    "dev-no-ts": "next dev",
+    "dev": "yarn dev-no-ts & yarn ts:watch",
     "build": "next build",
     "vercel:dev": "vercel dev & yarn ts:watch",
     "ts": "tsc --noEmit --incremental",

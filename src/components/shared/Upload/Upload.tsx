@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 
 import { saveToSupabase } from "lib/saveInfoToSupabase";
 import { useSignInModal } from "../../layout/sign-in-modal";
+import { useSetAppState } from "state";
 
 import tw from "tailwind-styled-components";
 import UserInfoForm from "./UserInfoForm";
@@ -129,7 +130,11 @@ export default function Upload() {
   const [uploaded, setUploaded] = useState(false);
   const [error, setError] = useState("");
   const [showFront, setShowFront] = useState(true);
-  const [fileInfoSavedToSupabase, setFileInfoSavedToSupabase] = useState(false);
+  const [fileInfoSavedToSupabase, setFileInfoSavedToSupabase] = useState<{
+    uuid: null | string;
+  }>({
+    uuid: null,
+  });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -147,6 +152,14 @@ export default function Upload() {
     setSelectedFileName(file ? file.name : "");
   };
 
+  const updateAppState = useSetAppState();
+
+  useEffect(() => {
+    if (fileInfoSavedToSupabase?.uuid) {
+      updateAppState({ uploadedFileUUID: fileInfoSavedToSupabase.uuid });
+    }
+  }, [fileInfoSavedToSupabase, updateAppState]);
+
   const handleUpload = async () => {
     if (selectedFile) {
       setUploading(true);
@@ -156,8 +169,10 @@ export default function Upload() {
         setUploaded(true);
         if (session?.user?.email) {
           await saveToSupabase(
-            session.user.email,
-            selectedFileName,
+            {
+              userEmail: session.user.email,
+              fileName: selectedFileName,
+            },
             setFileInfoSavedToSupabase,
           );
         }
@@ -231,7 +246,7 @@ export default function Upload() {
           <SignInModal />
         </>
       ) : uploaded ? (
-        <UserInfoForm />
+        <UserInfoForm goBackToFront={handleClick} />
       ) : (
         <CardBack />
       )}
