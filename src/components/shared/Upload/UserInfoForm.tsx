@@ -25,6 +25,18 @@ const Input = tw.input`
   mb-4
 `;
 
+const TextArea = tw.textarea`
+  border
+  border-gray-300
+  rounded
+  w-full
+  p-2
+  mb-4
+  resize-none
+  transition-all
+  duration-300
+`;
+
 const Select = tw.select`
   border
   border-gray-300
@@ -46,6 +58,19 @@ const Button = tw.button`
   transition
   duration-200
   ${(p) => p.disabled && "opacity-50 cursor-not-allowed"}
+`;
+const ToggleButton = tw.button`
+  bg-gray-200
+  hover:bg-gray-300
+  text-gray-700
+  font-semibold
+  py-1
+  px-3
+  rounded
+  shadow-md
+  transition
+  duration-200
+  mb-4
 `;
 const Heading = tw.h1`
 bg-gradient-to-br
@@ -107,14 +132,30 @@ const UserInfoForm = () => {
         fields are optional)
       </Paragragh>
       <Form onSubmit={handleSubmit(onSubmit)}>
-        <Label htmlFor="userName">Contributor Name</Label>
-        <Input id="userName" {...register("userName")} />
+        <Label htmlFor="description">Description</Label>
+        <TextArea
+          id="description"
+          {...register("description")}
+          onFocus={() => setIsFocused(true)}
+          onBlur={() => setIsFocused(false)}
+          rows={isFocused ? 10 : 2}
+        />
+        <ToggleButton
+          type="button"
+          onClick={() => setIsFocused((prev) => !prev)}
+        >
+          {isFocused ? "Hide" : "Show more"}
+        </ToggleButton>
+        <Label htmlFor="embeddingsModel">
+          Model Used to Train the Embeddings
+        </Label>
+        <Input id="embeddingsModel" {...register("embeddingsModel")} />
 
         <Label htmlFor="embeddingsName">Embeddings Name</Label>
         <Input id="embeddingsName" {...register("embeddingsName")} />
 
-        <Label htmlFor="modelUsed">Model Used To Train the Embeddings</Label>
-        <Input id="modelUsed" {...register("modelUsed")} />
+        <Label htmlFor="contributorName">Contributor Name</Label>
+        <Input id="contributorName" {...register("contributorName")} />
 
         <Label htmlFor="license">License</Label>
         <Select id="license" {...register("license")}>
