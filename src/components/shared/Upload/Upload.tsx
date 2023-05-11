@@ -129,6 +129,7 @@ export default function Upload() {
   const [uploaded, setUploaded] = useState(false);
   const [error, setError] = useState("");
   const [showFront, setShowFront] = useState(true);
+  const [fileInfoSavedToSupabase, setFileInfoSavedToSupabase] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -153,7 +154,13 @@ export default function Upload() {
       setUploading(false);
       if (result) {
         setUploaded(true);
-        saveToSupabase(session?.user?.email, selectedFileName);
+        if (session?.user?.email) {
+          await saveToSupabase(
+            session.user.email,
+            selectedFileName,
+            setFileInfoSavedToSupabase,
+          );
+        }
       } else {
         setError(
           "Upload failed. The file name may already exist on the server.",
