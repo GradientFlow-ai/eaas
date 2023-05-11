@@ -23,10 +23,9 @@ export default async function handler(
   if (!contentType.length && key) {
     if (key.endsWith('.parquet')) {
       contentType = 'application/x-parquet'
-    } else if (key.endsWith('.pkl') || key.endsWith('.pickle')) {
+    } else if (key.endsWith('.pkl') || key.endsWith('.pickle') || key.endsWith('.pt'))  {
       contentType = 'application/x-python-pickle';
     }
-    console.log('contentType', contentType);
   }
 
   if (!bucket.length) {

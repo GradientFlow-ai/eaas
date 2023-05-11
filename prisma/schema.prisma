@@ -1,13 +1,14 @@
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider          = "postgresql"
+  url               = env("DATABASE_URL")
   shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
 
 generator client {
   provider        = "prisma-client-js"
-  previewFeatures = ["clientExtensions" ]
+  previewFeatures = ["clientExtensions"]
 }
+
 model Account {
   id                 String  @id @default(cuid())
   userId             String  @map("user_id")
@@ -30,9 +31,9 @@ model Account {
 }
 
 model Documents {
-    id         Int      @id @default(autoincrement())
-    content    String
-    embedding  Unsupported("vector (1536)")
+  id        Int                          @id @default(autoincrement())
+  content   String
+  embedding Unsupported("vector (1536)")
 }
 
 model Session {
@@ -51,19 +52,14 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
+  S3File        S3File[]
 }
 
-model S3Embeddings {
-    id         Int      @id @default(autoincrement())
-    content    String
-    bucketAddress String
-}
-
-model VerificationToken {
-  id         Int      @id @default(autoincrement())
-  identifier String
-  token      String   @unique
-  expires    DateTime
-
-  @@unique([identifier, token])
+model S3File {
+  id       Int     @id @default(autoincrement())
+  uuid     String  @unique
+  filename String
+  email    String
+  User     User?   @relation(fields: [userId], references: [id])
+  userId   String?
 }

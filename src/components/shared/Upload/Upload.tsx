@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useSession } from "next-auth/react";
+
+import { saveToSupabase } from "lib/saveInfoToSupabase";
 import { useSignInModal } from "../../layout/sign-in-modal";
 
 import tw from "tailwind-styled-components";
@@ -127,6 +129,7 @@ export default function Upload() {
   const [uploaded, setUploaded] = useState(false);
   const [error, setError] = useState("");
   const [showFront, setShowFront] = useState(true);
+  const [fileInfoSavedToSupabase, setFileInfoSavedToSupabase] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -147,10 +150,17 @@ export default function Upload() {
   const handleUpload = async () => {
     if (selectedFile) {
       setUploading(true);
-      const result = await uploadFile(selectedFile, setProgress);
+      const result = await uploadFileToS3(selectedFile, setProgress);
       setUploading(false);
       if (result) {
         setUploaded(true);
+        if (session?.user?.email) {
+          await saveToSupabase(
+            session.user.email,
+            selectedFileName,
+            setFileInfoSavedToSupabase,
+          );
+        }
       } else {
         setError(
           "Upload failed. The file name may already exist on the server.",
@@ -191,7 +201,7 @@ export default function Upload() {
   const CardBack = () => (
     <div onDragOver={handleDragOver} onDrop={handleDrop}>
       <Heading onClick={handleClick}>
-        Upload a .parquet, .pkl, or .csv file
+        Upload a Pickle, parquet, or CSV file
       </Heading>
       <div className="mt-4 grid grid-cols-2 gap-4">
         <div>
@@ -229,7 +239,7 @@ export default function Upload() {
   );
 }
 
-const uploadFile = async (
+const uploadFileToS3 = async (
   file: File,
   setProgress: (progress: number) => void,
 ) => {
@@ -239,7 +249,6 @@ const uploadFile = async (
   const res = await fetch(
     `/api/embeddings/presignedPost?file=${filename}&fileType=${fileType}`,
   );
-  console.log(res);
   const { url, fields } = await res.json();
   const formData = new FormData();
 
@@ -253,7 +262,6 @@ const uploadFile = async (
   });
 
   if (upload.ok) {
-    console.log("Uploaded successfully!");
     return true;
   } else {
     console.error("Upload failed.");
