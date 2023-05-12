@@ -1,13 +1,13 @@
 generator client {
   provider        = "prisma-client-js"
-  previewFeatures = ["clientExtensions", "postgresqlExtensions"]  // Enable the postgresqlExtensions. Currently in preview
+  previewFeatures = ["clientExtensions", "postgresqlExtensions"] // Enable the postgresqlExtensions. Currently in preview
 }
 
 datasource db {
   provider          = "postgresql"
   url               = env("DATABASE_URL")
   shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
-  extensions = [pgvector(map: "vector", schema: "public")]  // Add the pgvector extension
+  extensions        = [pgvector(map: "vector", schema: "public")] // Add the pgvector extension
 }
 
 model Account {
@@ -53,6 +53,7 @@ model User {
 model S3File {
   id              Int     @id @default(autoincrement())
   uuid            String  @unique
+  s3Key           String  @unique
   fileName        String
   userEmail       String
   User            User    @relation(fields: [userId], references: [id])
