@@ -4,6 +4,8 @@ import { useSession } from "next-auth/react";
 import { saveToSupabase } from "lib/saveInfoToSupabase";
 import { useSetAppState, useSignInModalContext } from "state";
 
+import { PresignedPostResponse } from "types";
+
 import tw from "tailwind-styled-components";
 import UserInfoForm from "./UserInfoForm";
 
@@ -166,12 +168,15 @@ export default function Upload() {
       const result = await uploadFileToS3(selectedFile, setProgress);
       setUploading(false);
       if (result) {
+        const { uuid, key } = result;
         setUploaded(true);
         if (session?.user?.email) {
           await saveToSupabase(
             {
               userEmail: session.user.email,
               fileName: selectedFileName,
+              uuid,
+              s3Key: key,
             },
             setFileInfoSavedToSupabase,
           );
@@ -260,7 +265,8 @@ const uploadFileToS3 = async (
   const res = await fetch(
     `/api/embeddings/presignedPost?file=${filename}&fileType=${fileType}`,
   );
-  const { url, fields } = await res.json();
+  const { uuid, post }: PresignedPostResponse = await res.json();
+  const { url, fields } = post;
   const formData = new FormData();
 
   Object.entries({ ...fields, file }).forEach(([key, value]) => {
@@ -273,7 +279,7 @@ const uploadFileToS3 = async (
   });
 
   if (upload.ok) {
-    return true;
+    return { uuid, key: fields.key };
   } else {
     console.error("Upload failed.");
     return false;
