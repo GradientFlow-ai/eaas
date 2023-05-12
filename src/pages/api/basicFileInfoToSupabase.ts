@@ -1,5 +1,4 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { v4 as uuidv4 } from "uuid";
 import supabaseClient from 'lib/supabaseClient';
 
 import { EmbeddingsFileInfo  } from "types"
@@ -21,11 +20,10 @@ export default async function handler(
         return res.status(500).json({ error: 'Error finding user' });
     }
 
-    const uuid = uuidv4();
     const response = await supabaseClient
         .from('S3File')
         .insert([
-            { uuid, userId: user.id, ...fileInfo }
+            { userId: user.id, ...fileInfo }
         ]);
 
     const { data: file, error: fileError }  = response;
@@ -34,5 +32,5 @@ export default async function handler(
      return res.status(500).json({ error: 'Error saving file info' });
     }
 
-    return res.status(200).json({ success: true, uuid });
+    return res.status(200).json({ success: true });
 }
