@@ -23,12 +23,30 @@ const Button = tw.button`
   transition
   duration-200
 `;
-const DownloadItem = () => {
+const DownloadItem = ({ s3Key }: { s3Key: string }) => {
+  const { data: session } = useSession();
   const { setShowSignInModal } = useSignInModalContext();
+  const [s3Link, setS3Link] = useState<string | null>(null);
 
   const handleClick = () => {
-    setShowSignInModal(true);
+    if (!session) {
+      setShowSignInModal(true);
+    } else {
+      getPresignedS3Link(s3Key, setS3Link);
+    }
   };
+
+  // Download file once S3 link is set
+  useEffect(() => {
+    console.log("running effect");
+    if (s3Link) {
+      const link = document.createElement("a");
+      link.href = s3Link;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+  }, [s3Key, s3Link]);
 
   return <Button onClick={handleClick}>Download</Button>;
 };
