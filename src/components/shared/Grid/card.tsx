@@ -4,6 +4,8 @@ import Balancer from "react-wrap-balancer";
 import tw from "tailwind-styled-components";
 import randomEmoji from "lib/randomEmoji";
 
+import { useSignInModalContext } from "state";
+
 const Button = tw.button`
   bg-blue-400
   hover:bg-blue-500
@@ -17,7 +19,13 @@ const Button = tw.button`
   duration-200
 `;
 const DownloadItem = () => {
-  return <Button>Download</Button>;
+  const { setShowSignInModal } = useSignInModalContext();
+
+  const handleClick = () => {
+    setShowSignInModal(true);
+  };
+
+  return <Button onClick={handleClick}>Download</Button>;
 };
 
 const CardTitle = ({ title }: { title: string }) => {
@@ -53,6 +61,7 @@ const WrapDiv = tw.div<WrapDivProps>`
 
 export default function Card({ item, large }: { item: any; large?: boolean }) {
   const { name, model, downloadSize, license } = item;
+
   return (
     <WrapDiv>
       <div className="mx-auto max-w-md text-center">
