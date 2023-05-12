@@ -12,14 +12,13 @@ export async function saveToSupabase(
   })
     .then((res) => res.json())
     .then((json) => {
-      console.log(json);
-      setFileInfoSavedToSupabase(json);
+      setFileInfoSavedToSupabase({uuid: fileInfo.uuid});
     })
     .catch((err) => console.log(err));
 }
 export async function updateInSupabase(
   fileInfo: EmbeddingsFileInfo,
-  setFileInfoSavedToSupabase: React.Dispatch<React.SetStateAction<boolean>>
+  setFileInfoSavedToSupabase: React.Dispatch<React.SetStateAction<{uuid: null | string}>>
 ) {
   fetch("/api/updateFileInfoInSupabase", {
     method: "POST",
@@ -30,8 +29,7 @@ export async function updateInSupabase(
   })
     .then((res) => res.json())
     .then((json) => {
-      console.log(json);
-      setFileInfoSavedToSupabase(true);
+      setFileInfoSavedToSupabase({uuid: fileInfo.uuid});
     })
     .catch((err) => console.log(err));
 }

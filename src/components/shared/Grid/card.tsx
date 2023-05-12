@@ -38,7 +38,6 @@ const DownloadItem = ({ s3Key }: { s3Key: string }) => {
 
   // Download file once S3 link is set
   useEffect(() => {
-    console.log("running effect");
     if (s3Link) {
       const link = document.createElement("a");
       link.href = s3Link;
@@ -84,12 +83,20 @@ const WrapDiv = tw.div<WrapDivProps>`
 interface DescriptionCardProps {
   description: string;
 }
-
 const DescriptionCard: React.FC<DescriptionCardProps> = ({ description }) => {
+  const lines = description.split("\n");
+
   return (
-    <div className="rounded-md bg-white p-4 shadow-lg">
-      <h2 className="mb-2 text-lg font-bold">Description</h2>
-      <p className="text-md text-gray-600">{description}</p>
+    <div className="rounded-md bg-white p-8 shadow-lg">
+      <h2 className="mb-4 text-xl font-bold">Description</h2>
+      <pre className="text-md whitespace-pre-line text-gray-600">
+        {lines.map((line, index) => (
+          <p key={index} className="text-lg text-gray-600">
+            {line}
+            <br />
+          </p>
+        ))}
+      </pre>
     </div>
   );
 };

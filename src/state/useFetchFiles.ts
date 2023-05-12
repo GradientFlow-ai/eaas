@@ -1,10 +1,10 @@
 import { useEffect } from 'react';
-import { useSetAppState } from './hooks';
+import { usePageState, useSetAppState } from './hooks';
 import { SanitizedEmbeddingsFileInfo } from "types";
 
 const useFetchFiles = () => {
   const updateAppState = useSetAppState();
-
+  const { fileInfoUpdated, uploadedFileUUID } = usePageState();
   useEffect(() => {
     const fetchFiles = async () => {
       try {
@@ -19,7 +19,7 @@ const useFetchFiles = () => {
     };
 
     fetchFiles();
-  }, [updateAppState]);
+  }, [fileInfoUpdated, updateAppState, uploadedFileUUID]);
 };
 
 export default useFetchFiles;
