@@ -1,6 +1,12 @@
 import tw from "tailwind-styled-components";
 
-import { AppContext, Themes, usePageState, usePageTheme } from "state";
+import {
+  AppContext,
+  SignInModalContext,
+  Themes,
+  usePageState,
+  usePageTheme,
+} from "state";
 
 import { FADE_IN_ANIMATION_SETTINGS } from "lib/constants";
 import { AnimatePresence, motion } from "framer-motion";
@@ -10,8 +16,9 @@ import Link from "next/link";
 import { ReactNode } from "react";
 import useScroll from "lib/hooks/use-scroll";
 import Meta from "./meta";
-import { useSignInModal } from "./sign-in-modal";
 import UserDropdown from "./user-dropdown";
+
+import { useSignInModal } from "./sign-in-modal";
 
 import { BurgerMenu } from "./burger";
 
@@ -63,7 +70,9 @@ export default function Layout({
         setShowSignInModal={setShowSignInModal}
         shouldShowBurger={shouldShowBurger}
       />
-      <Main>{children}</Main>
+      <SignInModalContext.Provider value={{ setShowSignInModal }}>
+        <Main>{children}</Main>
+      </SignInModalContext.Provider>
       <Footer />
     </>
   );

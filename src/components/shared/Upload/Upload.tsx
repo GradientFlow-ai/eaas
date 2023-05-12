@@ -2,8 +2,7 @@ import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 
 import { saveToSupabase } from "lib/saveInfoToSupabase";
-import { useSignInModal } from "../../layout/sign-in-modal";
-import { useSetAppState } from "state";
+import { useSetAppState, useSignInModalContext } from "state";
 
 import tw from "tailwind-styled-components";
 import UserInfoForm from "./UserInfoForm";
@@ -135,6 +134,7 @@ export default function Upload() {
   }>({
     uuid: null,
   });
+  const { setShowSignInModal } = useSignInModalContext();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -185,7 +185,6 @@ export default function Upload() {
   };
 
   const { data: session } = useSession();
-  const { SignInModal, setShowSignInModal } = useSignInModal();
 
   const handleSignIn = () => {
     if (!session) {
@@ -241,10 +240,7 @@ export default function Upload() {
   return (
     <Card>
       {showFront ? (
-        <>
-          <CardFront />
-          <SignInModal />
-        </>
+        <CardFront />
       ) : uploaded ? (
         <UserInfoForm goBackToFront={handleClick} />
       ) : (

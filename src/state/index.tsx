@@ -1,6 +1,10 @@
 import { themes, Theme, Themes } from "./ThemeContext";
 import { ContextApp, AppContext } from "./appContext";
 import { baseAppState } from "./appState";
+import {
+  SignInModalContext,
+  useSignInModalContext,
+} from "./signInModalContext";
 
 import { usePageState, usePageTheme, useSetAppState } from "./hooks";
 import useFetchFiles from "./useFetchFiles";
@@ -10,6 +14,8 @@ export {
   AppContext,
   themes,
   ContextApp,
+  SignInModalContext,
+  useSignInModalContext,
   useFetchFiles,
   usePageState,
   usePageTheme,
