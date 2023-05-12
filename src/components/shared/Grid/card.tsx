@@ -1,10 +1,15 @@
 import { useEffect, useState } from "react";
-import ReactMarkdown from "react-markdown";
 import Balancer from "react-wrap-balancer";
 import tw from "tailwind-styled-components";
-import randomEmoji from "lib/randomEmoji";
+import { useSession } from "next-auth/react";
+import { ChevronDown } from "lucide-react";
 
+import { getPresignedS3Link } from "lib/getPresignedS3Link";
+import { SanitizedEmbeddingsFileInfo } from "types";
+import randomEmoji from "lib/randomEmoji";
 import { useSignInModalContext } from "state";
+import Popover from "components/shared/popover";
+import ExpandableText from "./ExpandableText";
 
 const Button = tw.button`
   bg-blue-400
