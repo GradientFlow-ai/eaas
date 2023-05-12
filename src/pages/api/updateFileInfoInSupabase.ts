@@ -22,7 +22,9 @@ export default async function handler(
         return res.status(500).json({ error: 'Error finding current user' });
     }
 
-    console.log(fileInfo)
+    if(!fileInfo.uuid) {
+        return res.status(500).json({ error: 'No uuid provided' });
+    }
 
     // Get the user who originally created the file
     const { data: originalFile, error: fileError } = await supabaseClient

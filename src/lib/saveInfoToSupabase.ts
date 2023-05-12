@@ -12,8 +12,7 @@ export async function saveToSupabase(
   })
     .then((res) => res.json())
     .then((json) => {
-      console.log(json);
-      setFileInfoSavedToSupabase(json);
+      setFileInfoSavedToSupabase({uuid: fileInfo.uuid});
     })
     .catch((err) => console.log(err));
 }
@@ -30,7 +29,6 @@ export async function updateInSupabase(
   })
     .then((res) => res.json())
     .then((json) => {
-      console.log(json);
       setFileInfoSavedToSupabase(true);
     })
     .catch((err) => console.log(err));
