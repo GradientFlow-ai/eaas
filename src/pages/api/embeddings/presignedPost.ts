@@ -1,6 +1,9 @@
 import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
 import { createPresignedPost } from '@aws-sdk/s3-presigned-post';
 import { NextApiRequest, NextApiResponse } from 'next';
+import { v4 as uuidv4 } from "uuid";
+
+import { PresignedPostResponse  } from "types"
 
 export default async function handler(
   req: NextApiRequest,
@@ -41,9 +44,12 @@ export default async function handler(
     return;
   }
 
+
+   const uuid = uuidv4();
+
   const post = await createPresignedPost(s3Client, {
     Bucket: bucket,
-    Key: key as string,
+    Key: `${uuid}/${key}`,
     Fields: {
       acl: 'public-read',
       'Content-Type': contentType as string,
@@ -54,5 +60,6 @@ export default async function handler(
     ],
   });
 
-  res.status(200).json(post);
+  const response: PresignedPostResponse = { post, uuid };
+  res.status(200).json(response);
 }
