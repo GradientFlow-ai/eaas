@@ -18,7 +18,7 @@ export async function saveToSupabase(
 }
 export async function updateInSupabase(
   fileInfo: EmbeddingsFileInfo,
-  setFileInfoSavedToSupabase: React.Dispatch<React.SetStateAction<boolean>>
+  setFileInfoSavedToSupabase: React.Dispatch<React.SetStateAction<{uuid: null | string}>>
 ) {
   fetch("/api/updateFileInfoInSupabase", {
     method: "POST",
@@ -29,7 +29,7 @@ export async function updateInSupabase(
   })
     .then((res) => res.json())
     .then((json) => {
-      setFileInfoSavedToSupabase(true);
+      setFileInfoSavedToSupabase({uuid: fileInfo.uuid});
     })
     .catch((err) => console.log(err));
 }

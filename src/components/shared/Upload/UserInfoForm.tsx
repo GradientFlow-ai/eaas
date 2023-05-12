@@ -1,10 +1,10 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useSession } from "next-auth/react";
 import tw from "tailwind-styled-components";
 
 import { updateInSupabase } from "lib/saveInfoToSupabase";
-import { usePageState } from "state";
+import { usePageState, useSetAppState } from "state";
 
 const Form = tw.form`
   mt-4
@@ -121,11 +121,23 @@ type FormValues = {
 
 const UserInfoForm = ({ goBackToFront }: { goBackToFront: () => void }) => {
   const { data: session } = useSession();
-  const [fileInfoSavedToSupabase, setFileInfoSavedToSupabase] = useState(false);
+  const [fileInfoSavedToSupabase, setFileInfoSavedToSupabase] = useState<{
+    uuid: null | string;
+  }>({
+    uuid: null,
+  });
+
   const [isFocused, setIsFocused] = useState(false);
+  const updateAppState = useSetAppState();
 
   const { register, handleSubmit, formState } = useForm<FormValues>();
   const { uploadedFileUUID } = usePageState();
+
+  useEffect(() => {
+    if (fileInfoSavedToSupabase?.uuid) {
+      updateAppState({ fileInfoUpdated: fileInfoSavedToSupabase.uuid });
+    }
+  }, [fileInfoSavedToSupabase, updateAppState]);
 
   const onSubmit = async (data: FormValues) => {
     await updateInSupabase(
@@ -139,7 +151,7 @@ const UserInfoForm = ({ goBackToFront }: { goBackToFront: () => void }) => {
   };
   return (
     <TransitionDiv>
-      {fileInfoSavedToSupabase ? (
+      {fileInfoSavedToSupabase.uuid ? (
         <ShimmerText onClick={goBackToFront}>
           Thank you for your contribution!
         </ShimmerText>
