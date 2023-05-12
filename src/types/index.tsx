@@ -10,6 +10,17 @@ export interface EmbeddingsFileInfo {
   contributorName?: string;
   license?: string;
 }
+export interface SanitizedEmbeddingsFileInfo {
+  uuid: string;
+  s3Key: string;
+  fileName: string;
+  description?: string;
+  embeddingsModel?: string;
+  embeddingsName?: string;
+  contributorName?: string;
+  license?: string;
+}
+
 export type PresignedPostResponse = {
   post: {
     url: string;

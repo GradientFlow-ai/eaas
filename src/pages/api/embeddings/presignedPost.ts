@@ -49,7 +49,7 @@ export default async function handler(
 
   const post = await createPresignedPost(s3Client, {
     Bucket: bucket,
-    Key: `${uuid}&${key}`,
+    Key: `${uuid}/${key}`,
     Fields: {
       acl: 'public-read',
       'Content-Type': contentType as string,
