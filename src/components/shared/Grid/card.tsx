@@ -69,22 +69,6 @@ const CardTitle = ({ title }: { title: string }) => {
   );
 };
 
-interface WrapDivProps {
-  large?: boolean;
-}
-
-const WrapDiv = tw.div<WrapDivProps>`
-  relative
-  col-span-1
-  h-96
-  overflow-hidden
-  rounded-xl
-  border
-  border-gray-200
-  bg-white
-  shadow-md
-  ${(props) => props.large && "md:col-span-2"}
-`;
 interface DescriptionCardProps {
   description?: string;
   timesDownloaded?: number;
@@ -155,7 +139,9 @@ const Field: React.FC<FieldProps> = ({
       break;
     case "description":
       labelClass = "prose-sm -mt-2 leading-normal text-gray-500 md:prose";
-      bodyClass = "font-mono cursor-pointer text-blue-500 hover:text-blue-600";
+      bodyClass =
+        "font-mono cursor-pointer text-blue-500 hover:text-blue-600 flex items-center";
+
       BodyComponent = (
         <Popover
           content={
@@ -191,6 +177,22 @@ const Field: React.FC<FieldProps> = ({
   );
 };
 
+interface WrapDivProps {
+  large?: boolean;
+}
+const WrapDiv = tw.div<WrapDivProps>`
+  relative
+  col-span-1
+  h-96
+  overflow-hidden
+  rounded-xl
+  border
+  border-gray-200
+  bg-white
+  shadow-md
+  ${(props) => props.large && "md:col-span-2"}
+`;
+
 export default function Card({
   item,
   large,
@@ -211,30 +213,35 @@ export default function Card({
   const downloadSize = undefined;
   return (
     <WrapDiv>
-      <div className="mx-auto max-w-md text-center">
-        <CardTitle title={fileName} />
-        <div className="flex h-60 items-center justify-center">
-          <div className="grid grid-cols-2 gap-10 p-10">
-            <Field
-              info={embeddingsModel || "Unknown"}
-              label="Embeddings Model"
-              variant="embeddingsModel"
-            />
-            <Field info={downloadSize} label="download size" />
-            <Field
-              info={license || "None specified"}
-              label="License"
-              variant="license"
-            />
-            <Field
-              info={description || "None"}
-              label="Description"
-              variant="description"
-              timesDownloaded={timesDownloaded}
-            />
+      <div className="mx-auto flex h-full max-w-md flex-col justify-between text-center">
+        <div>
+          <CardTitle title={fileName} />
+          <div className="flex items-center justify-center">
+            <div className="grid grid-cols-1 grid-cols-2 gap-6 p-4 p-10">
+              <Field
+                info={embeddingsModel || "Unknown"}
+                label="Embeddings Model"
+                variant="embeddingsModel"
+              />
+              <Field info={downloadSize} label="download size" />
+              <Field
+                info={license || "None specified"}
+                label="License"
+                variant="license"
+              />
+              <Field
+                info={description || "None"}
+                label="Description"
+                variant="description"
+                timesDownloaded={timesDownloaded}
+              />
+            </div>
           </div>
         </div>
-        <DownloadItem s3Key={s3Key} uuid={uuid} />
+        <div className="flex-grow"></div> {/* This is the spacer */}
+        <div className="mb-6">
+          <DownloadItem s3Key={s3Key} uuid={uuid} />
+        </div>
       </div>
     </WrapDiv>
   );
