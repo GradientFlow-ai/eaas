@@ -4,6 +4,7 @@ import { useSession } from "next-auth/react";
 import tw from "tailwind-styled-components";
 
 import { updateInSupabase } from "lib/saveInfoToSupabase";
+import { licenses } from "lib/licenses";
 import { usePageState, useSetAppState } from "state";
 
 const Form = tw.form`
@@ -191,11 +192,11 @@ const UserInfoForm = ({ goBackToFront }: { goBackToFront: () => void }) => {
             <Label htmlFor="license">License</Label>
             <Select id="license" {...register("license")}>
               <option value="">Select License</option>
-              <option value="mit">MIT License</option>
-              <option value="gpl">GNU General Public License (GPL)</option>
-              <option value="apache">Apache License 2.0</option>
-              <option value="bsd">BSD License</option>
-              <option value="other">Other</option>
+              {licenses.map((license) => (
+                <option key={license} value={license}>
+                  {license}
+                </option>
+              ))}
             </Select>
 
             <Button type="submit">Submit</Button>
