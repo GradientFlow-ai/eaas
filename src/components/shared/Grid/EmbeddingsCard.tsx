@@ -3,6 +3,7 @@ import Balancer from "react-wrap-balancer";
 import tw from "tailwind-styled-components";
 import { useSession } from "next-auth/react";
 import { ChevronDown } from "lucide-react";
+import Linkify from "linkify-react";
 
 import { incrementDownloadCount } from "lib/saveInfoToSupabase";
 import { getPresignedS3Link } from "lib/getPresignedS3Link";
@@ -83,12 +84,14 @@ const DescriptionCard: React.FC<DescriptionCardProps> = ({
     <div className="rounded-md bg-white p-8 shadow-lg">
       <h2 className="mb-4 text-xl font-bold">Description</h2>
       <pre className="text-md whitespace-pre-line text-gray-600">
-        {lines?.map((line, index) => (
-          <p key={index} className="text-lg text-gray-600">
-            {line}
-            <br />
-          </p>
-        ))}
+        <Linkify options={{ truncate: 15, target: "_blank" }}>
+          {lines?.map((line, index) => (
+            <p key={index} className="text-lg text-gray-600">
+              {line}
+              <br />
+            </p>
+          ))}
+        </Linkify>
         {Number.isInteger(timesDownloaded) && (
           <p className="text-lg text-gray-600">
             <br />
