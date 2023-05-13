@@ -4,10 +4,11 @@ import tw from "tailwind-styled-components";
 import { useSession } from "next-auth/react";
 import { ChevronDown } from "lucide-react";
 
+import { incrementDownloadCount } from "lib/saveInfoToSupabase";
 import { getPresignedS3Link } from "lib/getPresignedS3Link";
 import { SanitizedEmbeddingsFileInfo } from "types";
 import randomEmoji from "lib/randomEmoji";
-import { useSignInModalContext } from "state";
+import { useIncrementProperty, useSignInModalContext } from "state";
 import Popover from "components/shared/popover";
 import ExpandableText from "./ExpandableText";
 
@@ -23,10 +24,12 @@ const Button = tw.button`
   transition
   duration-200
 `;
-const DownloadItem = ({ s3Key }: { s3Key: string }) => {
+const DownloadItem = ({ s3Key, uuid }: { s3Key: string; uuid: string }) => {
   const { data: session } = useSession();
   const { setShowSignInModal } = useSignInModalContext();
   const [s3Link, setS3Link] = useState<string | null>(null);
+
+  const incrementProperty = useIncrementProperty();
 
   const handleClick = () => {
     if (!session) {
@@ -44,8 +47,10 @@ const DownloadItem = ({ s3Key }: { s3Key: string }) => {
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
+
+      incrementDownloadCount(uuid, incrementProperty);
     }
-  }, [s3Key, s3Link]);
+  }, [incrementProperty, s3Key, s3Link, uuid]);
 
   return <Button onClick={handleClick}>Download</Button>;
 };
@@ -81,21 +86,32 @@ const WrapDiv = tw.div<WrapDivProps>`
   ${(props) => props.large && "md:col-span-2"}
 `;
 interface DescriptionCardProps {
-  description: string;
+  description?: string;
+  timesDownloaded?: number;
 }
-const DescriptionCard: React.FC<DescriptionCardProps> = ({ description }) => {
-  const lines = description.split("\n");
+const DescriptionCard: React.FC<DescriptionCardProps> = ({
+  description,
+  timesDownloaded,
+}) => {
+  const lines = description?.split("\n");
 
   return (
     <div className="rounded-md bg-white p-8 shadow-lg">
       <h2 className="mb-4 text-xl font-bold">Description</h2>
       <pre className="text-md whitespace-pre-line text-gray-600">
-        {lines.map((line, index) => (
+        {lines?.map((line, index) => (
           <p key={index} className="text-lg text-gray-600">
             {line}
             <br />
           </p>
         ))}
+        {Number.isInteger(timesDownloaded) && (
+          <p className="text-lg text-gray-600">
+            <br />
+            <span className="font-bold">{timesDownloaded}</span> times
+            downloaded
+          </p>
+        )}
       </pre>
     </div>
   );
@@ -103,14 +119,25 @@ const DescriptionCard: React.FC<DescriptionCardProps> = ({ description }) => {
 
 interface FieldProps {
   info?: string;
+  timesDownloaded?: number;
   label: string;
-  variant?: "embeddingsModel" | "license" | "description" | "default";
+  variant?:
+    | "embeddingsModel"
+    | "license"
+    | "description"
+    | "default"
+    | "timesDownloaded";
 }
 
-const Field: React.FC<FieldProps> = ({ info, label, variant = "default" }) => {
+const Field: React.FC<FieldProps> = ({
+  info,
+  label,
+  variant = "default",
+  timesDownloaded,
+}) => {
   const [openPopover, setOpenPopover] = useState(false);
 
-  if (!info) {
+  if (!info && Number.isInteger(timesDownloaded)) {
     return null;
   }
 
@@ -131,12 +158,19 @@ const Field: React.FC<FieldProps> = ({ info, label, variant = "default" }) => {
       bodyClass = "font-mono cursor-pointer text-blue-500 hover:text-blue-600";
       BodyComponent = (
         <Popover
-          content={<DescriptionCard description={info} />}
+          content={
+            <DescriptionCard
+              description={info}
+              timesDownloaded={timesDownloaded}
+            />
+          }
           openPopover={openPopover}
           setOpenPopover={setOpenPopover}
         >
           <span className={bodyClass} onClick={() => setOpenPopover(true)}>
-            {info.length > 30 ? info.slice(0, 30) + "... " : info}
+            {info?.length && info.length > 30
+              ? info?.slice(0, 30) + "... "
+              : info}
             <ChevronDown />
           </span>
         </Popover>
@@ -164,7 +198,15 @@ export default function Card({
   item: SanitizedEmbeddingsFileInfo;
   large?: boolean;
 }) {
-  const { fileName, embeddingsModel, license, description, s3Key } = item;
+  const {
+    fileName,
+    embeddingsModel,
+    license,
+    description,
+    s3Key,
+    timesDownloaded,
+    uuid,
+  } = item;
 
   const downloadSize = undefined;
   return (
@@ -188,10 +230,11 @@ export default function Card({
               info={description || "None"}
               label="Description"
               variant="description"
+              timesDownloaded={timesDownloaded}
             />
           </div>
         </div>
-        <DownloadItem s3Key={s3Key} />
+        <DownloadItem s3Key={s3Key} uuid={uuid} />
       </div>
     </WrapDiv>
   );
