@@ -6,7 +6,12 @@ import {
   useSignInModalContext,
 } from "./signInModalContext";
 
-import { usePageState, usePageTheme, useSetAppState } from "./hooks";
+import {
+  useIncrementProperty,
+  usePageState,
+  usePageTheme,
+  useSetAppState,
+} from "./hooks";
 import useFetchFiles from "./useFetchFiles";
 
 export {
@@ -15,6 +20,7 @@ export {
   themes,
   ContextApp,
   SignInModalContext,
+  useIncrementProperty,
   useSignInModalContext,
   useFetchFiles,
   usePageState,
