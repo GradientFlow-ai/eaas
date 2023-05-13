@@ -12,6 +12,7 @@ import {
 import Meta from "./meta";
 import { useSignInModal } from "./sign-in-modal";
 import { Header } from "./Header";
+import { Footer } from "./Footer";
 
 interface BackgroundProps {
   $bgColor: string;
@@ -30,6 +31,7 @@ const Background = tw.div<BackgroundProps>`
 const Main = tw.main`
   flex
   w-full
+  min-h-screen
   flex-col
   items-center
   justify-center
@@ -68,9 +70,3 @@ export default function Layout({
     </>
   );
 }
-
-const Footer = () => (
-  <div className="absolute w-full border-t border-gray-200 bg-white py-5 text-center">
-    <p className="text-gray-500">Get Yer Embeddings On</p>
-  </div>
-);
