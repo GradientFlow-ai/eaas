@@ -27,7 +27,8 @@ export default async function handler(
         embeddingsModel,
         embeddingsName,
         contributorName,
-        license
+        license,
+      timesDownloaded,
     }) => {
     return {
         uuid,
@@ -37,7 +38,8 @@ export default async function handler(
         embeddingsModel,
         embeddingsName,
         contributorName,
-        license
+        license,
+        timesDownloaded,
     };
   });
 
