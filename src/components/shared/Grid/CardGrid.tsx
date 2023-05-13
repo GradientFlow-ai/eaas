@@ -3,7 +3,7 @@ import tw from "tailwind-styled-components";
 import { useFetchFiles, usePageState } from "state";
 import { SanitizedEmbeddingsFileInfo } from "types";
 
-import Card from "./card";
+import Card from "./EmbeddingsCard";
 
 const Heading = tw.h2`
 bg-gradient-to-br
