@@ -63,4 +63,5 @@ model S3File {
   embeddingsName  String?
   contributorName String?
   license         String?
+  timesDownloaded Int     @default(0)
 }
