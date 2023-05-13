@@ -39,4 +39,20 @@ const useSetAppState = () => {
   return updateAppState;
 };
 
-export { usePageState, usePageTheme, useSetAppState };
+const useIncrementProperty = () => {
+  const updateAppState = useSetAppState();
+
+  const incrementProperty = useCallback((property: string, page?: string) => {
+    updateAppState((prevState: any) => {
+      const pageKey = page || 'generalState';
+      const subState = prevState[pageKey];
+      const newValue = subState[property] + 1;
+      const newState = { ...subState, [property]: newValue };
+      return { ...prevState, [pageKey]: newState };
+    });
+  }, [updateAppState]);
+
+  return incrementProperty;
+};
+
+export { usePageTheme, usePageState, useSetAppState, useIncrementProperty };

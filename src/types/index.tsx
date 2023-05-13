@@ -19,6 +19,7 @@ export interface SanitizedEmbeddingsFileInfo {
   embeddingsName?: string;
   contributorName?: string;
   license?: string;
+  timesDownloaded?: number;
 }
 
 export type PresignedPostResponse = {

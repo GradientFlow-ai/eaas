@@ -4,7 +4,7 @@ import { SanitizedEmbeddingsFileInfo } from "types";
 
 const useFetchFiles = () => {
   const updateAppState = useSetAppState();
-  const { fileInfoUpdated, uploadedFileUUID } = usePageState();
+  const { fileInfoUpdated, uploadedFileUUID, totalDownloads } = usePageState();
   useEffect(() => {
     const fetchFiles = async () => {
       try {
@@ -19,7 +19,7 @@ const useFetchFiles = () => {
     };
 
     fetchFiles();
-  }, [fileInfoUpdated, updateAppState, uploadedFileUUID]);
+  }, [fileInfoUpdated, totalDownloads, updateAppState, uploadedFileUUID]);
 };
 
 export default useFetchFiles;
