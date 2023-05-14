@@ -120,7 +120,7 @@ type FormValues = {
   contributorName: string;
 };
 
-const UserInfoForm = ({ goBackToFront }: { goBackToFront: () => void }) => {
+const UserInfoForm = ({ resetForm }: { resetForm: () => void }) => {
   const { data: session } = useSession();
   const [fileInfoSavedToSupabase, setFileInfoSavedToSupabase] = useState<{
     uuid: null | string;
@@ -153,7 +153,7 @@ const UserInfoForm = ({ goBackToFront }: { goBackToFront: () => void }) => {
   return (
     <TransitionDiv>
       {fileInfoSavedToSupabase.uuid ? (
-        <ShimmerText onClick={goBackToFront}>
+        <ShimmerText onClick={resetForm}>
           Thank you for your contribution!
         </ShimmerText>
       ) : (

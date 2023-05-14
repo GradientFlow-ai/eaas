@@ -186,7 +186,7 @@ interface WrapDivProps {
 const WrapDiv = tw.div<WrapDivProps>`
   relative
   col-span-1
-  h-96
+  h-100
   overflow-hidden
   rounded-xl
   border
