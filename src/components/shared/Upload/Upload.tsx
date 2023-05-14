@@ -138,6 +138,17 @@ export default function Upload() {
   });
   const { setShowSignInModal } = useSignInModalContext();
 
+  const resetState = () => {
+    setSelectedFile(undefined);
+    setSelectedFileName("");
+    setUploading(false);
+    setProgress(0);
+    setUploaded(false);
+    setError("");
+    setShowFront(true);
+    setFileInfoSavedToSupabase({ uuid: null });
+  };
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     setSelectedFile(file);
@@ -247,7 +258,7 @@ export default function Upload() {
       {showFront ? (
         <CardFront />
       ) : uploaded ? (
-        <UserInfoForm goBackToFront={handleClick} />
+        <UserInfoForm resetForm={resetState} />
       ) : (
         <CardBack />
       )}
